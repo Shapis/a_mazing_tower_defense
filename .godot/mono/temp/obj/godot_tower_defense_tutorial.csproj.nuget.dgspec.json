@@ -1,0 +1,60 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/godot_tower_defense_tutorial.csproj": {}
+  },
+  "projects": {
+    "/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/godot_tower_defense_tutorial.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/godot_tower_defense_tutorial.csproj",
+        "projectName": "godot_tower_defense_tutorial",
+        "projectPath": "/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/godot_tower_defense_tutorial.csproj",
+        "packagesPath": "/home/hpsilva/.nuget/packages/",
+        "outputPath": "/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/home/hpsilva/.local/share/godot/mono/GodotNuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/hpsilva/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "dependencies": {
+            "Godot.SourceGenerators": {
+              "target": "Package",
+              "version": "[4.0.*-*, )"
+            },
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "autoReferenced": true
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

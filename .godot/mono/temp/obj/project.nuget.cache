@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "TX6lvcgD0WBc0u+YFE0wuaVtt0dPlQGIg/eXCZLA1S4HQ8NiwMVFeyi6BX0/rsBb4x3q94QplNmmsMPScW+XUw==",
+  "success": true,
+  "projectFilePath": "/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/godot_tower_defense_tutorial.csproj",
+  "expectedPackageFiles": [
+    "/home/hpsilva/.nuget/packages/godot.sourcegenerators/4.0.0-dev3/godot.sourcegenerators.4.0.0-dev3.nupkg.sha512",
+    "/home/hpsilva/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "/home/hpsilva/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.2/microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

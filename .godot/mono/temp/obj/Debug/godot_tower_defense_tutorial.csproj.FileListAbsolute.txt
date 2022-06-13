@@ -1,0 +1,9 @@
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/bin/Debug/godot_tower_defense_tutorial.dll
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/bin/Debug/godot_tower_defense_tutorial.pdb
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/obj/Debug/godot_tower_defense_tutorial.csproj.AssemblyReference.cache
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/obj/Debug/godot_tower_defense_tutorial.GeneratedMSBuildEditorConfig.editorconfig
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/obj/Debug/godot_tower_defense_tutorial.AssemblyInfoInputs.cache
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/obj/Debug/godot_tower_defense_tutorial.AssemblyInfo.cs
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/obj/Debug/godot_tower_defense_tutorial.csproj.CoreCompileInputs.cache
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/obj/Debug/godot_tower_defense_tutorial.dll
+/home/hpsilva/Documents/coding_projects/godot_tower_defense_tutorial/.godot/mono/temp/obj/Debug/godot_tower_defense_tutorial.pdb
