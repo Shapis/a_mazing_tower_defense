@@ -3,21 +3,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-
 public abstract partial class BaseTower : Node2D
 {
-    [Export] public float Range { get; private set; } = 600f;
-    [Export] public float RateOfFire { get; private set; } = 1f;
-    [Export] public float Damage { get; private set; } = 20f;
+    [Export]
+    public float Range { get; private set; } = 600f;
+
+    [Export]
+    public float RateOfFire { get; private set; } = 1f;
+
+    [Export]
+    public float Damage { get; private set; } = 20f;
     public bool IsBuilt { get; set; } = false;
-    [Export] private NodePath? _rangeCollisionShape2DPath;
+
+    [Export]
+    private NodePath? _rangeCollisionShape2DPath;
     private CollisionShape2D? _rangeCollisionShape2D;
-    [Export] private NodePath? _animationPlayerPath;
+
+    [Export]
+    private NodePath? _animationPlayerPath;
     protected AnimationPlayer? AnimationPlayer { get; private set; }
     private List<BaseEnemy> _targets = new List<BaseEnemy>();
     private BaseEnemy? _currentTarget;
     private bool _isReloaded = true;
-
 
     public sealed override void _Ready()
     {
@@ -34,11 +41,7 @@ public abstract partial class BaseTower : Node2D
         __Ready();
     }
 
-    protected virtual void __Ready()
-    {
-
-    }
-
+    protected virtual void __Ready() { }
 
     public sealed override void _PhysicsProcess(float delta)
     {
@@ -58,7 +61,6 @@ public abstract partial class BaseTower : Node2D
         {
             _currentTarget = null;
         }
-
     }
 
     private async void StartShootRoutine(BaseEnemy target)
@@ -70,7 +72,6 @@ public abstract partial class BaseTower : Node2D
     }
 
     protected abstract void Shoot(BaseEnemy target);
-
 
     private void SelectTarget()
     {
@@ -88,7 +89,6 @@ public abstract partial class BaseTower : Node2D
         GetNode<Sprite2D>("Turret").LookAt(_currentTarget.Position);
     }
 
-
     private void OnRangeBodyEntered(Node2D body)
     {
         _targets.Add(body.GetParent<BaseEnemy>());
@@ -98,5 +98,4 @@ public abstract partial class BaseTower : Node2D
     {
         _targets.Remove(body.GetParent<BaseEnemy>());
     }
-
 }

@@ -1,13 +1,84 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class BottomBar : TextureRect
 {
-    [Signal] public event Func<bool>? OnPausePlayPressedEvent;
-    [Signal] public event Action<object, AC.TowerType>? OnBuildBtnDown;
-    [Signal] public event Action<object, AC.TowerType>? OnBuildBtnUp;
+    public Func<bool>? OnPausePlayPressedEvent;
 
+    [Signal]
+    public event Action<object, AC.TowerType>? OnBuildBtnDown;
+    public Func<object, AC.TowerType, bool>? OnBuildBtnUp;
 
+    [Export]
+    private NodePath? _TowerOverflowTextPath;
+    private Label? _TowerOverflowText;
+
+    [Export]
+    List<NodePath>? _buildButtonsPath;
+    private List<TextureButton> _buildButtons = new List<TextureButton>();
+    private List<AC.TowerType> _towerBank = new List<AC.TowerType>
+    {
+        AC.TowerType.GunTurret,
+        AC.TowerType.GunTurret
+    };
+
+    internal void AddTower(AC.TowerType towerType)
+    {
+        _towerBank.Add(towerType);
+        UpdateAllButtons();
+    }
+
+    private void UpdateAllButtons()
+    {
+        var ac = GetNode<AC>("/root/AC");
+
+        for (int i = 0; i < _buildButtons.Count; i++)
+        {
+            if (i < _towerBank.Count)
+            {
+                _buildButtons[i].GetNode<TextureRect>("Icon").Texture = ac.GetTower(_towerBank[i])
+                    .GetNode<Sprite2D>("Turret")
+                    .Texture;
+                _buildButtons[i].Disabled = false;
+            }
+            else
+            {
+                _buildButtons[i].GetNode<TextureRect>("Icon").Texture = null;
+                _buildButtons[i].Disabled = true;
+            }
+        }
+        var overflow = _towerBank.Count - _buildButtons.Count;
+        if (overflow <= 0)
+        {
+            _TowerOverflowText!.Text = $"+{overflow}";
+            _TowerOverflowText!.Visible = false;
+        }
+        else if (overflow > 9)
+        {
+            _TowerOverflowText!.Text = $"++";
+            _TowerOverflowText!.Visible = true;
+        }
+        else
+        {
+            _TowerOverflowText!.Text = $"+{overflow}";
+            _TowerOverflowText!.Visible = true;
+        }
+    }
+
+    public sealed override void _Ready()
+    {
+        _TowerOverflowText = GetNode<Label>(_TowerOverflowTextPath);
+
+        foreach (NodePath path in _buildButtonsPath!)
+        {
+            TextureButton temp = GetNode<TextureButton>(path);
+            _buildButtons.Add(temp);
+        }
+
+        UpdateAllButtons();
+    }
 
     private void OnPausePlayPressed()
     {
@@ -19,44 +90,67 @@ public partial class BottomBar : TextureRect
     }
 
     #region  build button events
+    private void BtnDown(int i)
+    {
+        OnBuildBtnDown?.Invoke(this, _towerBank[i]);
+        _buildButtons[i].GetNode<TextureRect>("Icon").Texture = null;
+    }
+
+    private void BtnUp(int i)
+    {
+        if ((bool)OnBuildBtnUp?.Invoke(this, _towerBank[i])!)
+        {
+            _towerBank.RemoveAt(i);
+            UpdateAllButtons();
+        }
+        else
+        {
+            GD.Print("here");
+            var ac = GetNode<AC>("/root/AC");
+            _buildButtons[i].GetNode<TextureRect>("Icon").Texture = ac.GetTower(_towerBank[i])
+                .GetNode<Sprite2D>("Turret")
+                .Texture;
+        }
+    }
+
     private void OnBuildBtn0Down()
     {
-        OnBuildBtnDown?.Invoke(this, AC.TowerType.MachineGun);
+        BtnDown(0);
     }
 
     private void OnBuildBtn1Down()
     {
-        OnBuildBtnDown?.Invoke(this, AC.TowerType.MachineGun);
+        BtnDown(1);
     }
 
     private void OnBuildBtn2Down()
     {
-        OnBuildBtnDown?.Invoke(this, AC.TowerType.MachineGun);
+        BtnDown(2);
     }
 
     private void OnBuildBtn3Down()
     {
-        OnBuildBtnDown?.Invoke(this, AC.TowerType.MachineGun);
+        BtnDown(3);
     }
 
     private void OnBuildBtn0Up()
     {
-        OnBuildBtnUp?.Invoke(this, AC.TowerType.MachineGun);
+        BtnUp(0);
     }
 
     private void OnBuildBtn1Up()
     {
-        OnBuildBtnUp?.Invoke(this, AC.TowerType.MachineGun);
+        BtnUp(1);
     }
 
     private void OnBuildBtn2Up()
     {
-        OnBuildBtnUp?.Invoke(this, AC.TowerType.MachineGun);
+        BtnUp(2);
     }
 
     private void OnBuildBtn3Up()
     {
-        OnBuildBtnUp?.Invoke(this, AC.TowerType.MachineGun);
+        BtnUp(3);
     }
     #endregion
 }

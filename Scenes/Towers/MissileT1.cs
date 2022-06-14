@@ -7,5 +7,4 @@ public partial class MissileT1 : BaseTower
     {
         throw new NotImplementedException();
     }
-
 }

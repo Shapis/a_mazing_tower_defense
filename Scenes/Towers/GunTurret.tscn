@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://by1eqvssy1t8u"]
+[gd_scene load_steps=8 format=3 uid="uid://b5g2ghcqvoauw"]
 
-[ext_resource type="Script" path="res://Scenes/Towers/MachineGun.cs" id="1_0rde3"]
-[ext_resource type="Texture2D" uid="uid://d0e25gjyi2uaw" path="res://Assets/Entities/Towers/towerDefense_tile181.png" id="1_a8pqr"]
+[ext_resource type="Script" path="res://Scenes/Towers/GunTurret.cs" id="1_gmvxk"]
 [ext_resource type="Texture2D" uid="uid://fltof5jqhd6d" path="res://Assets/Entities/Towers/towerDefense_tile249.png" id="2_616bf"]
+[ext_resource type="Texture2D" uid="uid://d0e25gjyi2uaw" path="res://Assets/Entities/Towers/towerDefense_tile181.png" id="2_tqs6d"]
 [ext_resource type="Texture2D" uid="uid://b5g2gtka8kwe" path="res://Assets/Effects/towerDefense_tile297.png" id="4_wedk6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5bhwa"]
@@ -30,14 +30,14 @@ _data = {
 "Fire": SubResource( "Animation_1dhul" )
 }
 
-[node name="GunT1" type="Node2D"]
-script = ExtResource( "1_0rde3" )
+[node name="GunTurret" type="Node2D"]
+script = ExtResource( "1_gmvxk" )
 Range = 300.0
 _rangeCollisionShape2DPath = NodePath("Range/CollisionShape2D")
 _animationPlayerPath = NodePath("AnimationPlayer")
 
 [node name="Base" type="Sprite2D" parent="."]
-texture = ExtResource( "1_a8pqr" )
+texture = ExtResource( "2_tqs6d" )
 
 [node name="Turret" type="Sprite2D" parent="."]
 texture = ExtResource( "2_616bf" )

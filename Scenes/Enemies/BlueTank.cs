@@ -3,8 +3,11 @@ using System;
 
 public partial class BlueTank : BaseEnemy
 {
-    [Export] private PackedScene? _projectilePath;
-    [Export] private NodePath? _projectileSpawnPointPath;
+    [Export]
+    private PackedScene? _projectilePath;
+
+    [Export]
+    private NodePath? _projectileSpawnPointPath;
     private Position2D? _projectileSpawnPoint;
     private Random _rng = new Random();
 

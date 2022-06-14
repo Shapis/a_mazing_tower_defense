@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cigcjbbwdd4ye"]
+[gd_scene load_steps=5 format=3 uid="uid://ctk11hsuqec8x"]
 
 [ext_resource type="Script" path="res://Resources/Scripts/AC.cs" id="1_qjy1w"]
 [ext_resource type="PackedScene" uid="uid://cvss6jxrv56sp" path="res://Scenes/MainScenes/GameScene.tscn" id="2_crk06"]
-[ext_resource type="PackedScene" uid="uid://by1eqvssy1t8u" path="res://Scenes/Towers/MachineGun.tscn" id="3_7vqh6"]
+[ext_resource type="PackedScene" uid="uid://b5g2ghcqvoauw" path="res://Scenes/Towers/GunTurret.tscn" id="3_7vqh6"]
+[ext_resource type="PackedScene" uid="uid://bhu145o0c845j" path="res://Scenes/Towers/DualGunTurret.tscn" id="4_j5oy8"]
 
 [node name="AssortedCatalog" type="Node"]
 script = ExtResource( "1_qjy1w" )
 _packedScenes = [ExtResource( "2_crk06" )]
-_towers = [ExtResource( "3_7vqh6" )]
+_towers = [ExtResource( "3_7vqh6" ), ExtResource( "4_j5oy8" )]

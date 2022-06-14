@@ -12,6 +12,5 @@ public partial class ProjectileImpact : AnimatedSprite2D
     private void OnProjectileImpactAnimationFinished()
     {
         QueueFree();
-        GD.Print(this.Name, this.GetType().Name, "here");
     }
 }

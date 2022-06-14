@@ -3,23 +3,12 @@ using System;
 
 public partial class TowerPreview : Control
 {
-    [Export] private Texture2D? _rangeOverlayTexture;
+    [Export]
+    private Texture2D? _rangeOverlayTexture;
     private BaseTower? _dragTower;
     private Sprite2D? _rangeTexture;
     private bool _isBuildModeActive = false;
     private Map? _map;
-
-    //   UpdateTowerPreview(tilePosition, "1eff0096");
-    //         _buildTile = currentTile;
-    //     }
-    //     else if (!doesCellExist)
-    //     {
-    //         UpdateTowerPreview(mousePosition, "ff2031b8");
-    //         _buildTile = null;
-    //     }
-    //     else
-    //     {
-    //         UpdateTowerPreview(tilePosition, "ff2031b8");
 
     public sealed override void _Process(float delta)
     {
@@ -34,7 +23,7 @@ public partial class TowerPreview : Control
         {
             if (currentPosition is not null && !isBlocked)
             {
-                UpdateTower((Vector2)currentPosition, "1eff0096");
+                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "1eff0096");
             }
             else if (currentPosition is null)
             {
@@ -42,12 +31,10 @@ public partial class TowerPreview : Control
             }
             else
             {
-                UpdateTower((Vector2)currentPosition, "ff2031b8");
+                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "ff2031b8");
             }
-
         }
     }
-
 
     private void SetTower(AC.TowerType towerName)
     {
@@ -67,7 +54,6 @@ public partial class TowerPreview : Control
         _rangeTexture.Scale = new Vector2(scaling, scaling);
         _rangeTexture.Texture = _rangeOverlayTexture;
         _rangeTexture.Modulate = new Color("1eff0096");
-
 
         AddChild(_rangeTexture);
         Position = GetGlobalMousePosition();

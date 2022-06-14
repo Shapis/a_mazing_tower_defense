@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class MachineGun : BaseTower
+public partial class GunTurret : BaseTower
 {
     protected override void Shoot(BaseEnemy target)
     {

@@ -3,24 +3,51 @@ using System;
 
 public partial class Map : TileMap
 {
-    internal void BuildTower(Vector2i buildTile, AC.TowerType towerType)
+    [Export]
+    private NodePath? _towerContainerPath;
+    private Node? _towerContainer;
+
+    [Export]
+    private NodePath? _enemyPath2DPath;
+    private EnemyPath2D? _enemyPath2D;
+
+    public sealed override void _Ready()
     {
+        _towerContainer = GetNode<Node>(_towerContainerPath);
+        _enemyPath2D = GetNode<EnemyPath2D>(_enemyPath2DPath);
+    }
+
+    internal bool VerifyAndBuildTower(AC.TowerType towerType)
+    {
+        var buildTile = VerifyBuildLocation().Item1;
+        var isBlocked = VerifyBuildLocation().Item2;
+
+        if (buildTile is null || isBlocked)
+        {
+            return false;
+        }
+
+        var nullSafeBuildTile = (Vector2i)buildTile;
+
+        var tup2 = VerifyBuildLocation().Item2;
+
         var newTower = GetNode<AC>("/root/AC").GetTower(towerType);
         if (newTower is null)
         {
             GD.PrintErr("Failed to load tower");
-            return;
+            return false;
         }
-        newTower.Position = MapToWorld(buildTile);
+        newTower.Position = MapToWorld(nullSafeBuildTile);
         newTower.IsBuilt = true;
         newTower.Rotate(-Mathf.Pi / 2);
-        AddChild(newTower, true);
+        _towerContainer!.AddChild(newTower, true);
         var ac = GetNode<AC>("/root/AC");
-        SetCell(ac.GetMapLayer(AC.MapLayerName.Towers), buildTile, 1, new Vector2i(0, 0));
+        SetCell(ac.GetMapLayer(AC.MapLayerName.Towers), nullSafeBuildTile, 1, new Vector2i(0, 0));
+        return true;
     }
 
     // The Vector2i returns null if outside the map, or the tile index if in the map, and the bool returns whether the tile is blocked or not.
-    internal Tuple<Vector2?, bool> VerifyBuildLocation()
+    internal Tuple<Vector2i?, bool> VerifyBuildLocation()
     {
         Vector2 mousePosition = GetGlobalMousePosition();
 
@@ -45,20 +72,31 @@ public partial class Map : TileMap
             }
         }
 
-        if (!isCellBlocked && doesCellExist)
+        SetCell((int)AC.MapLayerName.TowerPreviews, currentTile, 1, new Vector2i(0, 0));
+
+        // If the path couldnt be generated return false and dont build the path2d.
+        var isReachable = _enemyPath2D!.GeneratePath();
+        if (isReachable)
+        {
+            _enemyPath2D.BuildPath2D();
+        }
+
+        ClearLayer((int)AC.MapLayerName.TowerPreviews);
+
+        if (!isCellBlocked && doesCellExist && isReachable)
         {
             // UpdateTowerPreview(tilePosition, "1eff0096");
-            return new Tuple<Vector2?, bool>(tilePosition, false);
+            return new Tuple<Vector2i?, bool>(currentTile, false);
         }
         else if (!doesCellExist)
         {
             // UpdateTowerPreview(mousePosition, "ff2031b8");
-            return new Tuple<Vector2?, bool>(null, true);
+            return new Tuple<Vector2i?, bool>(null, true);
         }
         else
         {
             // UpdateTowerPreview(tilePosition, "ff2031b8");
-            return new Tuple<Vector2?, bool>(tilePosition, true);
+            return new Tuple<Vector2i?, bool>(currentTile, true);
         }
     }
 }

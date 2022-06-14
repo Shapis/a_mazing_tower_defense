@@ -2486,12 +2486,12 @@
         </member>
         <member name="M:Godot.EditorSettings.SetSetting(System.String,System.Object)">
             <summary>
-            <para>Sets the <c>value</c> of the setting specified by <c>name</c>. This is equivalent to using <see cref="M:Godot.Object.Set(System.String,System.Object)"/> on the EditorSettings instance.</para>
+            <para>Sets the <c>value</c> of the setting specified by <c>name</c>. This is equivalent to using <see cref="M:Godot.Object.Set(Godot.StringName,System.Object)"/> on the EditorSettings instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSettings.GetSetting(System.String)">
             <summary>
-            <para>Returns the value of the setting specified by <c>name</c>. This is equivalent to using <see cref="M:Godot.Object.Get(System.String)"/> on the EditorSettings instance.</para>
+            <para>Returns the value of the setting specified by <c>name</c>. This is equivalent to using <see cref="M:Godot.Object.Get(Godot.StringName)"/> on the EditorSettings instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSettings.Erase(System.String)">

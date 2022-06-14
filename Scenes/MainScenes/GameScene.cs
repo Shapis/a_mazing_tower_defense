@@ -4,20 +4,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-
 public partial class GameScene : Node2D
 {
-    [Export] private NodePath? _bottomBarPath;
+    [Export]
+    private NodePath? _bottomBarPath;
     private BottomBar? _bottomBar;
-    [Export] private NodePath? _mapPath;
+
+    [Export]
+    private NodePath? _mapPath;
     private Map? _map;
-    [Export] private NodePath? _towerPreviewPath;
+
+    [Export]
+    private NodePath? _towerPreviewPath;
     private TowerPreview? _towerPreview;
     private bool _isBuildModeActive = false;
-    private bool _isBuildValid = false;
-    private Vector2 _buildLocation;
-    private Vector2i _buildTile;
-    private AC.TowerType? _buildType;
     private int _currentWave = 0;
     private int _enemiesInWave = 0;
 
@@ -50,19 +50,13 @@ public partial class GameScene : Node2D
         _bottomBar.OnPausePlayPressedEvent += OnPausePlayPressed;
         _bottomBar.OnBuildBtnDown += OnBuildBtnDown;
         _bottomBar.OnBuildBtnUp += OnBuildBtnUp;
-
     }
 
-    private void OnBuildBtnUp(object sender, AC.TowerType towerName)
+    private bool OnBuildBtnUp(object sender, AC.TowerType towerType)
     {
         _towerPreview!.EndBuildModePreview();
-        // // VerifyAndBuild();
-        // var buildTile = OnBuildModeEnded(this, towerName);
-        // if (buildTile is null)
-        // {
-        //     return;
-        // }
-        // _map!.BuildTower((Vector2i)buildTile, towerName);
+
+        return _map!.VerifyAndBuildTower(towerType);
     }
 
     private void OnBuildBtnDown(object sender, AC.TowerType towerName)
@@ -70,6 +64,13 @@ public partial class GameScene : Node2D
         _towerPreview!.InitiateBuildModePreview(towerName, _map);
     }
 
+    public sealed override void _UnhandledInput(InputEvent inputEvent)
+    {
+        if (inputEvent.IsActionPressed("ui_accept"))
+        {
+            _bottomBar!.AddTower(AC.TowerType.GunTurret);
+        }
+    }
 
     private bool OnPausePlayPressed()
     {
@@ -87,7 +88,6 @@ public partial class GameScene : Node2D
             return false;
         }
     }
-
 
     #region Wave Methods
 
@@ -112,17 +112,19 @@ public partial class GameScene : Node2D
     {
         foreach (var item in waveData)
         {
-            var newEnemy = GD.Load<PackedScene>("res://Scenes/Enemies/" + item.Item1 + ".tscn").Instantiate() as BaseEnemy;
+            var newEnemy =
+                GD.Load<PackedScene>("res://Scenes/Enemies/" + item.Item1 + ".tscn").Instantiate()
+                as BaseEnemy;
             if (_map is null)
             {
                 GD.Print(this, "Map is null");
                 return;
             }
-            _map.GetNode<Path2D>("Path2D").AddChild(newEnemy, true);
+
+            _map.GetChildren().OfType<Path2D>().First().AddChild(newEnemy, true);
             await ToSignal(GetTree().CreateTimer(item.Item2), "timeout");
         }
     }
 
     #endregion
-
 }

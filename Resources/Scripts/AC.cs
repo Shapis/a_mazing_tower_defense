@@ -37,9 +37,8 @@ public partial class AC : Node
 
     public enum TowerType
     {
-
-        MachineGun,
-
+        GunTurret,
+        DualGunTurret,
     }
 
     public BaseTower GetTower(AC.TowerType towerName)
@@ -52,7 +51,7 @@ public partial class AC : Node
         Ground,
         Roads,
         Props,
-        Walls,
+        TowerPreviews,
         Towers,
     }
 

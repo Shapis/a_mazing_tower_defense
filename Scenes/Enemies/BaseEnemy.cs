@@ -2,11 +2,17 @@ using Godot;
 using System;
 using System.Runtime.CompilerServices;
 using System.Linq;
+
 public abstract partial class BaseEnemy : PathFollow2D
 {
-    [Export] public float Speed { get; private set; } = 100f;
-    [Export] private float _health = 100f;
-    [Export] private NodePath? _characterBody2DPath;
+    [Export]
+    public float Speed { get; private set; } = 100f;
+
+    [Export]
+    private float _health = 100f;
+
+    [Export]
+    private NodePath? _characterBody2DPath;
     private CharacterBody2D? _characterBody2D;
     private TextureProgressBar? _healthBar;
     private Vector2 _healthBarOffset = new Vector2(-30, 28);
@@ -14,7 +20,8 @@ public abstract partial class BaseEnemy : PathFollow2D
     public sealed override void _Ready()
     {
         _characterBody2D = GetNode<CharacterBody2D>(_characterBody2DPath);
-        _healthBar = GetChildren().FirstOrDefault(x => x is TextureProgressBar) as TextureProgressBar;
+        _healthBar =
+            GetChildren().FirstOrDefault(x => x is TextureProgressBar) as TextureProgressBar;
         if (_healthBar is null)
         {
             GD.PrintErr(this, "Health bar not found");
@@ -26,10 +33,7 @@ public abstract partial class BaseEnemy : PathFollow2D
         __Ready();
     }
 
-    protected virtual void __Ready()
-    {
-
-    }
+    protected virtual void __Ready() { }
 
     public sealed override void _PhysicsProcess(float delta)
     {
@@ -40,7 +44,6 @@ public abstract partial class BaseEnemy : PathFollow2D
     {
         Offset += Speed * delta;
         _healthBar!.Position = GlobalPosition + _healthBarOffset;
-
     }
 
     public void OnHit(float Damage)
@@ -71,8 +74,5 @@ public abstract partial class BaseEnemy : PathFollow2D
         QueueFree();
     }
 
-    protected virtual void __OnHit()
-    {
-
-    }
+    protected virtual void __OnHit() { }
 }

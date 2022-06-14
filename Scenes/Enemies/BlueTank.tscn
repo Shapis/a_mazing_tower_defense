@@ -11,7 +11,7 @@ size = Vector2(43, 42)
 [node name="BlueTank" type="PathFollow2D"]
 loop = false
 script = ExtResource( "1_hymie" )
-_health = 40.0
+_health = 400.0
 _characterBody2DPath = NodePath("CharacterBody2D")
 _projectilePath = ExtResource( "2_tguaj" )
 _projectileSpawnPointPath = NodePath("Impact")
