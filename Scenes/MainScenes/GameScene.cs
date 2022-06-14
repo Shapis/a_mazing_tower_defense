@@ -2,15 +2,18 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 
 public partial class GameScene : Node2D
 {
+    [Export] private NodePath? _towerPreviewPath;
     TileMap? _map;
     private bool _isBuildModeActive = false;
     private bool _isBuildValid = false;
     private Vector2 _buildLocation;
     private Vector2i _buildTile;
-    private string? _buildType;
+    private AC.TowerName? _buildType;
     private int _currentWave = 0;
     private int _enemiesInWave = 0;
     public override void _Ready()
@@ -113,15 +116,15 @@ public partial class GameScene : Node2D
     #endregion
 
     #region Building Methods
-    private void InitiateBuildMode(string towerType)
+    private void InitiateBuildMode(AC.TowerName towerType)
     {
         if (_isBuildModeActive)
         {
             CancelBuildMode();
         }
-        _buildType = towerType + "T1";
+        _buildType = towerType;
         _isBuildModeActive = true;
-        GetNode<UI>("UI").SetTowerPreview(_buildType, GetGlobalMousePosition());
+        GetNode<TowerPreview>(_towerPreviewPath).SetTowerPreview(towerType, GetGlobalMousePosition());
 
     }
 
@@ -139,7 +142,7 @@ public partial class GameScene : Node2D
         var tilePosition = _map.MapToWorld(currentTile);
 
         bool isCellBlocked = false;
-        for (int i = 1; i <= 3; i++)
+        for (int i = 1; i <= 4; i++)
         {
             if (_map.GetCellSourceId(i, currentTile, true) != -1)
             {
@@ -150,13 +153,13 @@ public partial class GameScene : Node2D
         if (!isCellBlocked)
         {
             _buildTile = currentTile;
-            GetNode<UI>("UI").UpdateTowerPreview(tilePosition, "1eff0096");
+            GetNode<TowerPreview>(_towerPreviewPath).UpdateTowerPreview(tilePosition, "1eff0096");
             _isBuildValid = true;
             _buildLocation = tilePosition;
         }
         else
         {
-            GetNode<UI>("UI").UpdateTowerPreview(tilePosition, "ff2031b8");
+            GetNode<TowerPreview>(_towerPreviewPath).UpdateTowerPreview(tilePosition, "ff2031b8");
             _isBuildValid = false;
         }
     }
@@ -165,15 +168,15 @@ public partial class GameScene : Node2D
     {
         _isBuildModeActive = false;
         _isBuildValid = false;
-        GetNode<UI>("UI").RemoveDragTower();
-
+        GetNode<TowerPreview>(_towerPreviewPath).RemoveDragTower();
     }
 
     private void VerifyAndBuild()
     {
         if (_isBuildValid)
         {
-            var newTower = GD.Load<PackedScene>("res://Scenes/Towers/" + _buildType + ".tscn").Instantiate() as BaseTower;
+
+            var newTower = GetNode<AC>("/root/AC").GetTower(AC.TowerName.MachineGun);
             if (newTower is null)
             {
                 GD.PrintErr("Failed to load tower");
@@ -183,13 +186,14 @@ public partial class GameScene : Node2D
             newTower.IsBuilt = true;
             newTower.Rotate(-Mathf.Pi / 2);
             _map!.AddChild(newTower, true);
-            _map!.SetCell(3, _buildTile, 1, new Vector2i(0, 0));
+            var ac = GetNode<AC>("/root/AC");
+            _map!.SetCell(ac.GetMapLayer(AC.MapLayerName.Towers), _buildTile, 1, new Vector2i(0, 0));
         }
     }
 
-    private void OnBuildBtnPressed(string nodeName)
+    private void OnBuildBtnPressed()
     {
-        InitiateBuildMode(nodeName);
+        InitiateBuildMode(AC.TowerName.MachineGun);
     }
     #endregion
 }

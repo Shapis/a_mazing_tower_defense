@@ -125,13 +125,20 @@ layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array(458754, 5, 0, 131072, 5, 0, 196615, 5, 0, 786433, 5, 0, 851975, 3, 0, 655362, 3, 0, 524293, 3, 0, 65540, 3, 0, 327681, 6, 0, 196612, 6, 0, 655367, 6, 0, 851972, 7, 0, 131077, 7, 0, 589825, 7, 0)
-layer_3/name = "Towers"
+layer_3/name = "Walls"
 layer_3/enabled = true
 layer_3/modulate = Color(1, 1, 1, 1)
 layer_3/y_sort_enabled = false
 layer_3/y_sort_origin = 0
 layer_3/z_index = 0
 layer_3/tile_data = PackedInt32Array()
+layer_4/name = "Towers"
+layer_4/enabled = true
+layer_4/modulate = Color(1, 1, 1, 1)
+layer_4/y_sort_enabled = false
+layer_4/y_sort_origin = 0
+layer_4/z_index = 0
+layer_4/tile_data = PackedInt32Array()
 
 [node name="Path2D" type="Path2D" parent="."]
 z_index = 1

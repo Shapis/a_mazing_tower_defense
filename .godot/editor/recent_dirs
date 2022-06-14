@@ -1,8 +1,9 @@
-res://Resources/Fonts
+res://Resources/Scripts
 res://Scenes/SupportScenes
+res://Scenes/MainScenes
+res://Resources/Fonts
 res://Scenes/Enemies
 res://Assets/UI
-res://Scenes/MainScenes
 res://Assets/Fonts
 res://Scenes/UIScenes
 res://Scenes

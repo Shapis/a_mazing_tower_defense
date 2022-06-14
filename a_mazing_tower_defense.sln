@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "a_mazing_tower_defense", "a_mazing_tower_defense.csproj", "{05A26192-A8F7-4D0C-BBF3-7094A84ACBDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05A26192-A8F7-4D0C-BBF3-7094A84ACBDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05A26192-A8F7-4D0C-BBF3-7094A84ACBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05A26192-A8F7-4D0C-BBF3-7094A84ACBDC}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{05A26192-A8F7-4D0C-BBF3-7094A84ACBDC}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{05A26192-A8F7-4D0C-BBF3-7094A84ACBDC}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{05A26192-A8F7-4D0C-BBF3-7094A84ACBDC}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

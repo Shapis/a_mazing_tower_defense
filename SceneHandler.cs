@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Linq;
+
 
 public partial class SceneHandler : Node
 {
@@ -8,19 +10,21 @@ public partial class SceneHandler : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _mainMenu = GetNode<MainMenu>("MainMenu");
+        _mainMenu = GetChildren().OfType<MainMenu>().First();
         _mainMenu.OnNewGamePressed += OnNewGamePressed;
         _mainMenu.OnSettingsPressed += OnSettingsPressed;
         _mainMenu.OnShopPressed += OnShopPressed;
         _mainMenu.OnAboutPressed += OnAboutPressed;
         _mainMenu.OnQuitPressed += OnQuitPressed;
-
     }
 
     public void OnNewGamePressed(Node sender)
     {
+
         _mainMenu?.QueueFree();
-        var gameScene = GD.Load<PackedScene>("res://Scenes/MainScenes/GameScene.tscn").Instantiate();
+
+        var gameScene = GetNode<AC>("/root/AC").GetPackedScene(AC.SceneName.GameScene).Instantiate();
+
         AddChild(gameScene);
     }
 

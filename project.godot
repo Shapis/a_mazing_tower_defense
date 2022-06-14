@@ -12,8 +12,12 @@ config_version=5
 
 config/name="a_mazing_tower_defense"
 run/main_scene="res://SceneHandler.tscn"
-config/features=PackedStringArray("4.0", "Vulkan Mobile")
+config/features=PackedStringArray("4.0", "C#", "Vulkan Mobile")
 config/icon="res://icon.png"
+
+[autoload]
+
+AC="*res://Resources/Scripts/AC.cs"
 
 [display]
 
