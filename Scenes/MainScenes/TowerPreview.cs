@@ -1,13 +1,78 @@
 using Godot;
 using System;
 
-public partial class TowerPreview : Control
+public partial class TowerPreview : Control, IBuildModeEvents
 {
+    [Export] private NodePath? _GameScenePath;
+    private GameScene? _gameScene;
     [Export] private Texture2D? _rangeOverlayTexture;
     private BaseTower? _dragTower;
     private Sprite2D? _rangeTexture;
+    private bool _isBuildModeActive = false;
+    [Export] private NodePath? _mapPath;
+    private TileMap? _map;
+    private Vector2i? _buildTile;
 
-    internal void SetTowerPreview(AC.TowerName towerName, Vector2 globalMousePosition)
+    public sealed override void _Ready()
+    {
+        _map = GetNode<TileMap>(_mapPath);
+        _gameScene = GetNode<GameScene>(_GameScenePath);
+        _gameScene.OnBuildModeStartedEvent += OnBuildModeStarted;
+        _gameScene.OnBuildModeEndedEvent += OnBuildModeEnded;
+    }
+
+    public sealed override void _Process(float delta)
+    {
+        if (_isBuildModeActive)
+        {
+            Vector2 mousePosition = GetGlobalMousePosition();
+
+            if (_map is null)
+            {
+                GD.PrintErr("Map is null");
+                return;
+            }
+
+            var currentTile = _map.WorldToMap(mousePosition);
+            var tilePosition = _map.MapToWorld(currentTile);
+
+            bool doesCellExist = false;
+            for (int i = 0; i < 4; i++)
+            {
+                if (_map.GetCellSourceId(i, currentTile, true) != -1)
+                {
+                    doesCellExist = true;
+                    break;
+                }
+            }
+            bool isCellBlocked = false;
+            for (int i = 1; i <= 4; i++)
+            {
+                if (_map.GetCellSourceId(i, currentTile, true) != -1)
+                {
+                    isCellBlocked = true;
+                }
+            }
+
+            if (!isCellBlocked && doesCellExist)
+            {
+                UpdateTowerPreview(tilePosition, "1eff0096");
+                _buildTile = currentTile;
+            }
+            else if (!doesCellExist)
+            {
+                UpdateTowerPreview(mousePosition, "ff2031b8");
+                _buildTile = null;
+            }
+            else
+            {
+                UpdateTowerPreview(tilePosition, "ff2031b8");
+                _buildTile = null;
+            }
+        }
+    }
+
+    private void SetTowerPreview(AC.TowerName towerName, Vector2 globalMousePosition)
     {
         _dragTower = GetNode<AC>("/root/AC").GetTower(towerName);
 
@@ -32,13 +97,13 @@ public partial class TowerPreview : Control
         AddChild(_dragTower, true);
     }
 
-    internal void RemoveDragTower()
+    private void RemoveDragTower()
     {
-        RemoveChild(_dragTower);
-        RemoveChild(_rangeTexture);
+        _dragTower!.Free();
+        _rangeTexture!.Free();
     }
 
-    internal void UpdateTowerPreview(Vector2 tilePosition, string colorHex)
+    private void UpdateTowerPreview(Vector2 tilePosition, string colorHex)
     {
         Position = tilePosition;
 
@@ -57,5 +122,22 @@ public partial class TowerPreview : Control
             }
             _rangeTexture.Modulate = new Color(colorHex);
         }
+    }
+
+    public void OnBuildModeStarted(object sender, AC.TowerName towerName)
+    {
+        if (_isBuildModeActive)
+        {
+            OnBuildModeEnded(sender, towerName);
+        }
+        SetTowerPreview(towerName, GetGlobalMousePosition());
+        _isBuildModeActive = true;
+    }
+
+    public Vector2i? OnBuildModeEnded(object sender, AC.TowerName towerName)
+    {
+        RemoveDragTower();
+        _isBuildModeActive = false;
+        return _buildTile;
     }
 }

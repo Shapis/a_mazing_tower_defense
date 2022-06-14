@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-public partial class GameScene : Node2D
+public partial class GameScene : Node2D, IBuildModeEvents
 {
-    [Export] private NodePath? _towerPreviewPath;
     TileMap? _map;
     private bool _isBuildModeActive = false;
     private bool _isBuildValid = false;
@@ -16,18 +15,36 @@ public partial class GameScene : Node2D
     private AC.TowerName? _buildType;
     private int _currentWave = 0;
     private int _enemiesInWave = 0;
+
+    public event Action<object, AC.TowerName>? OnBuildModeStartedEvent;
+    public event Func<object, AC.TowerName, Vector2i?>? OnBuildModeEndedEvent;
     public override void _Ready()
     {
         _map = GetNode<TileMap>("Map");
         GetNode<UI>("UI").OnPausePlayPressedEvent += OnPausePlayPressed;
+        GetNode<UI>("UI").OnBuildBtnDown += OnBuildBtnDown;
+        GetNode<UI>("UI").OnBuildBtnUp += OnBuildBtnUp;
 
+    }
+
+    private void OnBuildBtnUp(object sender, AC.TowerName towerName)
+    {
+        // VerifyAndBuild();
+        OnBuildModeEnded(this, towerName);
+
+
+    }
+
+    private void OnBuildBtnDown(object sender, AC.TowerName towerName)
+    {
+        OnBuildModeStarted(this, towerName);
     }
 
     private bool OnPausePlayPressed()
     {
         if (_isBuildModeActive)
         {
-            CancelBuildMode();
+            // CancelBuildMode();
         }
         if (_currentWave == 0)
         {
@@ -40,44 +57,22 @@ public partial class GameScene : Node2D
         }
     }
 
-    private void OnUiOnSpeedUpPressed()
-    {
-        if (_isBuildModeActive)
-        {
-            CancelBuildMode();
-        }
-        if (Engine.TimeScale == 2f)
-        {
-            Engine.TimeScale = 1f;
-        }
-        else
-        {
-            Engine.TimeScale = 2f;
-        }
-    }
+    // private void OnUiOnSpeedUpPressed()
+    // {
+    //     if (_isBuildModeActive)
+    //     {
+    //         CancelBuildMode();
+    //     }
+    //     if (Engine.TimeScale == 2f)
+    //     {
+    //         Engine.TimeScale = 1f;
+    //     }
+    //     else
+    //     {
+    //         Engine.TimeScale = 2f;
+    //     }
+    // }
 
-    public override void _Process(float delta)
-    {
-        if (_isBuildModeActive)
-        {
-            UpdateTowerPreview();
-        }
-
-    }
-
-    public override void _UnhandledInput(InputEvent inputEvent)
-    {
-
-        if (inputEvent.IsActionReleased("ui_cancel") && _isBuildModeActive)
-        {
-            CancelBuildMode();
-        }
-        if (inputEvent.IsActionReleased("ui_accept") && _isBuildModeActive)
-        {
-            VerifyAndBuild();
-            CancelBuildMode();
-        }
-    }
 
     #region Wave Methods
 
@@ -116,59 +111,19 @@ public partial class GameScene : Node2D
     #endregion
 
     #region Building Methods
-    private void InitiateBuildMode(AC.TowerName towerType)
+    public void OnBuildModeStarted(object sender, AC.TowerName towerName)
     {
-        if (_isBuildModeActive)
-        {
-            CancelBuildMode();
-        }
-        _buildType = towerType;
+        _buildType = towerName;
         _isBuildModeActive = true;
-        GetNode<TowerPreview>(_towerPreviewPath).SetTowerPreview(towerType, GetGlobalMousePosition());
-
+        OnBuildModeStartedEvent?.Invoke(sender, towerName);
     }
 
-    private void UpdateTowerPreview()
-    {
-        Vector2 mousePosition = GetGlobalMousePosition();
 
-        if (_map is null)
-        {
-            GD.PrintErr("Map is null");
-            return;
-        }
-
-        var currentTile = _map.WorldToMap(mousePosition);
-        var tilePosition = _map.MapToWorld(currentTile);
-
-        bool isCellBlocked = false;
-        for (int i = 1; i <= 4; i++)
-        {
-            if (_map.GetCellSourceId(i, currentTile, true) != -1)
-            {
-                isCellBlocked = true;
-            }
-        }
-
-        if (!isCellBlocked)
-        {
-            _buildTile = currentTile;
-            GetNode<TowerPreview>(_towerPreviewPath).UpdateTowerPreview(tilePosition, "1eff0096");
-            _isBuildValid = true;
-            _buildLocation = tilePosition;
-        }
-        else
-        {
-            GetNode<TowerPreview>(_towerPreviewPath).UpdateTowerPreview(tilePosition, "ff2031b8");
-            _isBuildValid = false;
-        }
-    }
-
-    private void CancelBuildMode()
+    public Vector2i? OnBuildModeEnded(object sender, AC.TowerName towerName)
     {
         _isBuildModeActive = false;
         _isBuildValid = false;
-        GetNode<TowerPreview>(_towerPreviewPath).RemoveDragTower();
+        return OnBuildModeEndedEvent?.Invoke(this, towerName);
     }
 
     private void VerifyAndBuild()
@@ -191,9 +146,6 @@ public partial class GameScene : Node2D
         }
     }
 
-    private void OnBuildBtnPressed()
-    {
-        InitiateBuildMode(AC.TowerName.MachineGun);
-    }
+
     #endregion
 }

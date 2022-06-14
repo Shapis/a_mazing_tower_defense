@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://va16gvf6g5so" path="res://Assets/Entities/Towers/towerDefense_tile251.png" id="4_dw0pu"]
 [ext_resource type="Texture2D" uid="uid://bdpb08isj3lw6" path="res://Assets/UI/Icons/right.png" id="5_2b2yc"]
 [ext_resource type="Texture2D" uid="uid://cl2sy7lth73a1" path="res://Assets/UI/Icons/pause.png" id="6_j0k3s"]
-[ext_resource type="Texture2D" uid="uid://dmlllwhqqsdyx" path="res://Assets/UI/Icons/fastForward.png" id="8_nqrmq"]
+[ext_resource type="Texture2D" uid="uid://jkhiqw6u7m46" path="res://Assets/UI/Art/BackGround.png" id="9_q2220"]
 [ext_resource type="Font" uid="uid://db57ncpinah5i" path="res://Resources/Fonts/kenney_future_narrow.tres" id="11_6gkwr"]
 [ext_resource type="Script" path="res://Scenes/MainScenes/TowerPreview.cs" id="11_pyhkk"]
 [ext_resource type="Texture2D" uid="uid://c8v31l1yendta" path="res://Assets/UI/HPbar.jpg" id="12_8skfk"]
@@ -17,7 +17,6 @@
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( "1_ovsd1" )
-_towerPreviewPath = NodePath("UI/HUD/TowerPreview")
 
 [node name="Map" parent="." instance=ExtResource( "1_sfkm7" )]
 
@@ -30,9 +29,19 @@ anchor_bottom = 1.0
 mouse_filter = 2
 metadata/_edit_use_custom_anchors = true
 
-[node name="BottomBar" type="HBoxContainer" parent="UI/HUD"]
+[node name="BottomBar" type="TextureRect" parent="UI/HUD"]
 minimum_size = Vector2(0, 128)
 anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
+grow_vertical = 0
+texture = ExtResource( "9_q2220" )
+ignore_texture_size = true
+metadata/_edit_use_custom_anchors = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/BottomBar"]
+minimum_size = Vector2(0, 128)
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
@@ -40,15 +49,11 @@ theme_override_constants/separation = 10
 metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
-[node name="Control2" type="Control" parent="UI/HUD/BottomBar"]
-offset_bottom = 128.0
-
-[node name="PausePlay" type="TextureButton" parent="UI/HUD/BottomBar"]
+[node name="PausePlay" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
 process_mode = 3
 minimum_size = Vector2(90, 90)
-offset_left = 10.0
 offset_top = 14.0
-offset_right = 110.0
+offset_right = 100.0
 offset_bottom = 114.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -57,35 +62,24 @@ texture_normal = ExtResource( "5_2b2yc" )
 texture_pressed = ExtResource( "6_j0k3s" )
 stretch_mode = 0
 
-[node name="SpeedUp" type="TextureButton" parent="UI/HUD/BottomBar"]
-minimum_size = Vector2(90, 90)
-offset_left = 120.0
-offset_top = 14.0
-offset_right = 220.0
-offset_bottom = 114.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-toggle_mode = true
-texture_normal = ExtResource( "8_nqrmq" )
-stretch_mode = 0
-
-[node name="Control" type="Control" parent="UI/HUD/BottomBar"]
-offset_left = 230.0
-offset_right = 230.0
+[node name="Control" type="Control" parent="UI/HUD/BottomBar/HBoxContainer"]
+offset_left = 110.0
+offset_right = 110.0
 offset_bottom = 128.0
 
-[node name="BtnGun" type="TextureButton" parent="UI/HUD/BottomBar"]
+[node name="BuildBtn0" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
 minimum_size = Vector2(90, 90)
-offset_left = 240.0
+offset_left = 120.0
 offset_top = 19.0
-offset_right = 330.0
+offset_right = 210.0
 offset_bottom = 109.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+action_mode = 0
 texture_normal = ExtResource( "2_bjkfu" )
 stretch_mode = 0
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/BtnGun"]
+[node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn0"]
 layout_direction = 1
 anchor_left = 0.5
 anchor_top = 0.5
@@ -103,18 +97,79 @@ texture = ExtResource( "3_vct74" )
 metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
-[node name="BtnMissile" type="TextureButton" parent="UI/HUD/BottomBar"]
+[node name="BuildBtn1" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
 minimum_size = Vector2(90, 90)
-offset_left = 340.0
+offset_left = 220.0
 offset_top = 19.0
-offset_right = 430.0
+offset_right = 310.0
 offset_bottom = 109.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+action_mode = 0
 texture_normal = ExtResource( "2_bjkfu" )
 stretch_mode = 0
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/BtnMissile"]
+[node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn1"]
+layout_direction = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+pivot_offset = Vector2(40, 40)
+texture = ExtResource( "4_dw0pu" )
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_custom_anchors = true
+
+[node name="BuildBtn2" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
+minimum_size = Vector2(90, 90)
+offset_left = 320.0
+offset_top = 19.0
+offset_right = 410.0
+offset_bottom = 109.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+action_mode = 0
+texture_normal = ExtResource( "2_bjkfu" )
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn2"]
+layout_direction = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+pivot_offset = Vector2(40, 40)
+texture = ExtResource( "4_dw0pu" )
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_custom_anchors = true
+
+[node name="BuildBtn3" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
+minimum_size = Vector2(90, 90)
+offset_left = 420.0
+offset_top = 19.0
+offset_right = 510.0
+offset_bottom = 109.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+action_mode = 0
+texture_normal = ExtResource( "2_bjkfu" )
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn3"]
 layout_direction = 1
 anchor_left = 0.5
 anchor_top = 0.5
@@ -136,7 +191,9 @@ metadata/_edit_use_custom_anchors = true
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource( "11_pyhkk" )
+_GameScenePath = NodePath("../../..")
 _rangeOverlayTexture = ExtResource( "4_72ncs" )
+_mapPath = NodePath("../../../Map")
 
 [node name="InfoBar" type="ColorRect" parent="UI/HUD"]
 visible = false
@@ -201,8 +258,12 @@ offset_left = 576.0
 offset_right = 576.0
 offset_bottom = 60.0
 
-[connection signal="OnSpeedUpPressedEvent" from="UI" to="." method="OnUiOnSpeedUpPressed"]
-[connection signal="pressed" from="UI/HUD/BottomBar/PausePlay" to="UI" method="OnPausePlayPressed"]
-[connection signal="pressed" from="UI/HUD/BottomBar/SpeedUp" to="UI" method="OnSpeedUpPressed"]
-[connection signal="pressed" from="UI/HUD/BottomBar/BtnGun" to="." method="OnBuildBtnPressed"]
-[connection signal="pressed" from="UI/HUD/BottomBar/BtnMissile" to="." method="OnBuildBtnPressed" binds= ["Missile"]]
+[connection signal="pressed" from="UI/HUD/BottomBar/HBoxContainer/PausePlay" to="UI" method="OnPausePlayPressed"]
+[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn0" to="UI" method="OnBuildBtn0Down"]
+[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn0" to="UI" method="OnBuildBtn0Up"]
+[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn1" to="UI" method="OnBuildBtn1Down"]
+[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn1" to="UI" method="OnBuildBtn1Up"]
+[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn2" to="UI" method="OnBuildBtn2Down"]
+[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn2" to="UI" method="OnBuildBtn2Up"]
+[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn3" to="UI" method="OnBuildBtn3Down"]
+[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn3" to="UI" method="OnBuildBtn3Up"]

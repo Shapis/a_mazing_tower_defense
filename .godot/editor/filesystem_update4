@@ -1,11 +1,6 @@
-res://AssortedCatalog.tscn
-res://Resources/Fonts/kenney_future_narrow.tres
 res://Scenes/MainScenes/GameScene.tscn
-res://Scenes/Towers/GunT1.tscn
-res://Scenes/Towers/GunT2.tscn
-res://Scenes/Towers/MissileT1.tscn
-res://Scenes/Enemies/BlueTank.tscn
+res://Resources/Fonts/kenney_future_narrow.tres
 res://Scenes/Maps/Map.tscn
 res://Scenes/SupportScenes/ProjectileImpact.tscn
-res://SceneHandler.tscn
+res://Scenes/Enemies/BlueTank.tscn
 res://Scenes/Towers/MachineGun.tscn
