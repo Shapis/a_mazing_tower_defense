@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvss6jxrv56sp"]
+[gd_scene load_steps=16 format=3 uid="uid://cvss6jxrv56sp"]
 
 [ext_resource type="Script" path="res://Scenes/MainScenes/GameScene.cs" id="1_ovsd1"]
 [ext_resource type="PackedScene" uid="uid://cglesm4bjo0s4" path="res://Scenes/Maps/Map.tscn" id="1_sfkm7"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bumicu8wsshvr" path="res://Assets/UI/range_overlay.png" id="4_72ncs"]
 [ext_resource type="Texture2D" uid="uid://va16gvf6g5so" path="res://Assets/Entities/Towers/towerDefense_tile251.png" id="4_dw0pu"]
 [ext_resource type="Texture2D" uid="uid://bdpb08isj3lw6" path="res://Assets/UI/Icons/right.png" id="5_2b2yc"]
+[ext_resource type="Script" path="res://Scenes/MainScenes/BottomBar.cs" id="5_eyarc"]
 [ext_resource type="Texture2D" uid="uid://cl2sy7lth73a1" path="res://Assets/UI/Icons/pause.png" id="6_j0k3s"]
 [ext_resource type="Texture2D" uid="uid://jkhiqw6u7m46" path="res://Assets/UI/Art/BackGround.png" id="9_q2220"]
 [ext_resource type="Font" uid="uid://db57ncpinah5i" path="res://Resources/Fonts/kenney_future_narrow.tres" id="11_6gkwr"]
@@ -17,6 +18,9 @@
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( "1_ovsd1" )
+_bottomBarPath = NodePath("UI/HUD/BottomBar")
+_mapPath = NodePath("Map")
+_towerPreviewPath = NodePath("UI/HUD/TowerPreview")
 
 [node name="Map" parent="." instance=ExtResource( "1_sfkm7" )]
 
@@ -38,6 +42,7 @@ offset_top = -128.0
 grow_vertical = 0
 texture = ExtResource( "9_q2220" )
 ignore_texture_size = true
+script = ExtResource( "5_eyarc" )
 metadata/_edit_use_custom_anchors = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/BottomBar"]
@@ -191,9 +196,7 @@ metadata/_edit_use_custom_anchors = true
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource( "11_pyhkk" )
-_GameScenePath = NodePath("../../..")
 _rangeOverlayTexture = ExtResource( "4_72ncs" )
-_mapPath = NodePath("../../../Map")
 
 [node name="InfoBar" type="ColorRect" parent="UI/HUD"]
 visible = false
@@ -259,11 +262,12 @@ offset_right = 576.0
 offset_bottom = 60.0
 
 [connection signal="pressed" from="UI/HUD/BottomBar/HBoxContainer/PausePlay" to="UI" method="OnPausePlayPressed"]
-[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn0" to="UI" method="OnBuildBtn0Down"]
-[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn0" to="UI" method="OnBuildBtn0Up"]
-[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn1" to="UI" method="OnBuildBtn1Down"]
-[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn1" to="UI" method="OnBuildBtn1Up"]
-[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn2" to="UI" method="OnBuildBtn2Down"]
-[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn2" to="UI" method="OnBuildBtn2Up"]
-[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn3" to="UI" method="OnBuildBtn3Down"]
-[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn3" to="UI" method="OnBuildBtn3Up"]
+[connection signal="pressed" from="UI/HUD/BottomBar/HBoxContainer/PausePlay" to="UI/HUD/BottomBar" method="OnPausePlayPressed"]
+[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn0" to="UI/HUD/BottomBar" method="OnBuildBtn0Down"]
+[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn0" to="UI/HUD/BottomBar" method="OnBuildBtn0Up"]
+[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn1" to="UI/HUD/BottomBar" method="OnBuildBtn1Down"]
+[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn1" to="UI/HUD/BottomBar" method="OnBuildBtn1Up"]
+[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn2" to="UI/HUD/BottomBar" method="OnBuildBtn2Down"]
+[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn2" to="UI/HUD/BottomBar" method="OnBuildBtn2Up"]
+[connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn3" to="UI/HUD/BottomBar" method="OnBuildBtn3Down"]
+[connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn3" to="UI/HUD/BottomBar" method="OnBuildBtn3Up"]

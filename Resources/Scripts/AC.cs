@@ -35,13 +35,14 @@ public partial class AC : Node
         return _packedScenes![(int)sceneName];
     }
 
-    public enum TowerName
+    public enum TowerType
     {
+
         MachineGun,
 
     }
 
-    public BaseTower GetTower(AC.TowerName towerName)
+    public BaseTower GetTower(AC.TowerType towerName)
     {
         return _towers![(int)towerName].Instantiate<BaseTower>();
     }

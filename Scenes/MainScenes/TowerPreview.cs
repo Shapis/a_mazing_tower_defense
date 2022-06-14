@@ -1,78 +1,55 @@
 using Godot;
 using System;
 
-public partial class TowerPreview : Control, IBuildModeEvents
+public partial class TowerPreview : Control
 {
-    [Export] private NodePath? _GameScenePath;
-    private GameScene? _gameScene;
     [Export] private Texture2D? _rangeOverlayTexture;
     private BaseTower? _dragTower;
     private Sprite2D? _rangeTexture;
     private bool _isBuildModeActive = false;
-    [Export] private NodePath? _mapPath;
-    private TileMap? _map;
-    private Vector2i? _buildTile;
+    private Map? _map;
 
-    public sealed override void _Ready()
-    {
-        _map = GetNode<TileMap>(_mapPath);
-        _gameScene = GetNode<GameScene>(_GameScenePath);
-        _gameScene.OnBuildModeStartedEvent += OnBuildModeStarted;
-        _gameScene.OnBuildModeEndedEvent += OnBuildModeEnded;
-    }
+    //   UpdateTowerPreview(tilePosition, "1eff0096");
+    //         _buildTile = currentTile;
+    //     }
+    //     else if (!doesCellExist)
+    //     {
+    //         UpdateTowerPreview(mousePosition, "ff2031b8");
+    //         _buildTile = null;
+    //     }
+    //     else
+    //     {
+    //         UpdateTowerPreview(tilePosition, "ff2031b8");
 
     public sealed override void _Process(float delta)
     {
+        if (_map is null)
+        {
+            return;
+        }
+
+        var currentPosition = _map.VerifyBuildLocation().Item1;
+        var isBlocked = _map.VerifyBuildLocation().Item2;
         if (_isBuildModeActive)
         {
-            Vector2 mousePosition = GetGlobalMousePosition();
-
-            if (_map is null)
+            if (currentPosition is not null && !isBlocked)
             {
-                GD.PrintErr("Map is null");
-                return;
+                UpdateTower((Vector2)currentPosition, "1eff0096");
             }
-
-            var currentTile = _map.WorldToMap(mousePosition);
-            var tilePosition = _map.MapToWorld(currentTile);
-
-            bool doesCellExist = false;
-            for (int i = 0; i < 4; i++)
+            else if (currentPosition is null)
             {
-                if (_map.GetCellSourceId(i, currentTile, true) != -1)
-                {
-                    doesCellExist = true;
-                    break;
-                }
-            }
-            bool isCellBlocked = false;
-            for (int i = 1; i <= 4; i++)
-            {
-                if (_map.GetCellSourceId(i, currentTile, true) != -1)
-                {
-                    isCellBlocked = true;
-                }
-            }
-
-            if (!isCellBlocked && doesCellExist)
-            {
-                UpdateTowerPreview(tilePosition, "1eff0096");
-                _buildTile = currentTile;
-            }
-            else if (!doesCellExist)
-            {
-                UpdateTowerPreview(mousePosition, "ff2031b8");
-                _buildTile = null;
+                UpdateTower(GetGlobalMousePosition(), "ff2031b8");
             }
             else
             {
-                UpdateTowerPreview(tilePosition, "ff2031b8");
-                _buildTile = null;
+                UpdateTower((Vector2)currentPosition, "ff2031b8");
             }
+
         }
     }
 
-    private void SetTowerPreview(AC.TowerName towerName, Vector2 globalMousePosition)
+
+    private void SetTower(AC.TowerType towerName)
     {
         _dragTower = GetNode<AC>("/root/AC").GetTower(towerName);
 
@@ -93,7 +70,7 @@ public partial class TowerPreview : Control, IBuildModeEvents
 
 
         AddChild(_rangeTexture);
-        Position = globalMousePosition;
+        Position = GetGlobalMousePosition();
         AddChild(_dragTower, true);
     }
 
@@ -103,7 +80,7 @@ public partial class TowerPreview : Control, IBuildModeEvents
         _rangeTexture!.Free();
     }
 
-    private void UpdateTowerPreview(Vector2 tilePosition, string colorHex)
+    private void UpdateTower(Vector2 tilePosition, string colorHex)
     {
         Position = tilePosition;
 
@@ -124,20 +101,17 @@ public partial class TowerPreview : Control, IBuildModeEvents
         }
     }
 
-    public void OnBuildModeStarted(object sender, AC.TowerName towerName)
+    internal void InitiateBuildModePreview(AC.TowerType towerName, Map? map)
     {
-        if (_isBuildModeActive)
-        {
-            OnBuildModeEnded(sender, towerName);
-        }
-        SetTowerPreview(towerName, GetGlobalMousePosition());
+        SetTower(towerName);
         _isBuildModeActive = true;
+        _map = map;
     }
 
-    public Vector2i? OnBuildModeEnded(object sender, AC.TowerName towerName)
+    internal void EndBuildModePreview()
     {
-        RemoveDragTower();
+        _map = null;
         _isBuildModeActive = false;
-        return _buildTile;
+        RemoveDragTower();
     }
 }

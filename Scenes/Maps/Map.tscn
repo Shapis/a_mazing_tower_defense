@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cglesm4bjo0s4"]
+[gd_scene load_steps=16 format=3 uid="uid://cglesm4bjo0s4"]
 
 [ext_resource type="Texture2D" uid="uid://bgb7yfgp2ui47" path="res://Assets/Environments/Tilesets/terrainTiles_default.png" id="1_aga08"]
 [ext_resource type="Texture2D" uid="uid://bbhjlgoww01ml" path="res://Assets/Environments/Tilesets/Transparent64x64.png" id="2_1jbl0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cv2ba53a1g1xh" path="res://Assets/Environments/Props/treeGreen_large.png" id="3_cd041"]
 [ext_resource type="Texture2D" uid="uid://cibaw6pgv4uvt" path="res://Assets/Environments/Props/crateMetal.png" id="4_vufsc"]
 [ext_resource type="Texture2D" uid="uid://c5movf1f7vlxu" path="res://Assets/Environments/Props/crateWood.png" id="5_7n4ad"]
+[ext_resource type="Script" path="res://Scenes/Maps/Map.cs" id="7_widcw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cr6q8"]
 texture = ExtResource( "1_aga08" )
@@ -139,6 +140,7 @@ layer_4/y_sort_enabled = false
 layer_4/y_sort_origin = 0
 layer_4/z_index = 0
 layer_4/tile_data = PackedInt32Array()
+script = ExtResource( "7_widcw" )
 
 [node name="Path2D" type="Path2D" parent="."]
 z_index = 1

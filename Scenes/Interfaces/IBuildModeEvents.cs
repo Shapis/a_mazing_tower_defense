@@ -3,6 +3,6 @@ using System;
 
 interface IBuildModeEvents
 {
-    void OnBuildModeStarted(object sender, AC.TowerName towerName); // Invoked from GameScene.cs
-    Vector2i? OnBuildModeEnded(object sender, AC.TowerName towerName); // Invoked from GameScene.cs
+    void OnBuildModeStarted(object sender, AC.TowerType towerName); // Invoked from GameScene.cs
+    Vector2i? OnBuildModeEnded(object sender, AC.TowerType towerName); // Invoked from GameScene.cs
 }

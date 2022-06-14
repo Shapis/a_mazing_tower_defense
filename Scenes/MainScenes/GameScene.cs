@@ -5,40 +5,71 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-public partial class GameScene : Node2D, IBuildModeEvents
+public partial class GameScene : Node2D
 {
-    TileMap? _map;
+    [Export] private NodePath? _bottomBarPath;
+    private BottomBar? _bottomBar;
+    [Export] private NodePath? _mapPath;
+    private Map? _map;
+    [Export] private NodePath? _towerPreviewPath;
+    private TowerPreview? _towerPreview;
     private bool _isBuildModeActive = false;
     private bool _isBuildValid = false;
     private Vector2 _buildLocation;
     private Vector2i _buildTile;
-    private AC.TowerName? _buildType;
+    private AC.TowerType? _buildType;
     private int _currentWave = 0;
     private int _enemiesInWave = 0;
 
-    public event Action<object, AC.TowerName>? OnBuildModeStartedEvent;
-    public event Func<object, AC.TowerName, Vector2i?>? OnBuildModeEndedEvent;
+    // public event Action<object, AC.TowerType>? OnBuildModeStartedEvent;
+    // public event Func<object, AC.TowerType, Vector2i?>? OnBuildModeEndedEvent;
     public override void _Ready()
     {
-        _map = GetNode<TileMap>("Map");
-        GetNode<UI>("UI").OnPausePlayPressedEvent += OnPausePlayPressed;
-        GetNode<UI>("UI").OnBuildBtnDown += OnBuildBtnDown;
-        GetNode<UI>("UI").OnBuildBtnUp += OnBuildBtnUp;
+        _bottomBar = GetNode<BottomBar>(_bottomBarPath);
+        _map = GetNode<Map>(_mapPath);
+        _towerPreview = GetNode<TowerPreview>(_towerPreviewPath);
+
+        if (_bottomBar is null)
+        {
+            GD.PrintErr("BottomBar is null");
+            return;
+        }
+
+        if (_map is null)
+        {
+            GD.PrintErr("Map is null");
+            return;
+        }
+
+        if (_towerPreview is null)
+        {
+            GD.PrintErr("TowerPreview is null");
+            return;
+        }
+
+        _bottomBar.OnPausePlayPressedEvent += OnPausePlayPressed;
+        _bottomBar.OnBuildBtnDown += OnBuildBtnDown;
+        _bottomBar.OnBuildBtnUp += OnBuildBtnUp;
 
     }
 
-    private void OnBuildBtnUp(object sender, AC.TowerName towerName)
+    private void OnBuildBtnUp(object sender, AC.TowerType towerName)
     {
-        // VerifyAndBuild();
-        OnBuildModeEnded(this, towerName);
-
-
+        _towerPreview!.EndBuildModePreview();
+        // // VerifyAndBuild();
+        // var buildTile = OnBuildModeEnded(this, towerName);
+        // if (buildTile is null)
+        // {
+        //     return;
+        // }
+        // _map!.BuildTower((Vector2i)buildTile, towerName);
     }
 
-    private void OnBuildBtnDown(object sender, AC.TowerName towerName)
+    private void OnBuildBtnDown(object sender, AC.TowerType towerName)
     {
-        OnBuildModeStarted(this, towerName);
+        _towerPreview!.InitiateBuildModePreview(towerName, _map);
     }
+
 
     private bool OnPausePlayPressed()
     {
@@ -56,22 +87,6 @@ public partial class GameScene : Node2D, IBuildModeEvents
             return false;
         }
     }
-
-    // private void OnUiOnSpeedUpPressed()
-    // {
-    //     if (_isBuildModeActive)
-    //     {
-    //         CancelBuildMode();
-    //     }
-    //     if (Engine.TimeScale == 2f)
-    //     {
-    //         Engine.TimeScale = 1f;
-    //     }
-    //     else
-    //     {
-    //         Engine.TimeScale = 2f;
-    //     }
-    // }
 
 
     #region Wave Methods
@@ -110,42 +125,4 @@ public partial class GameScene : Node2D, IBuildModeEvents
 
     #endregion
 
-    #region Building Methods
-    public void OnBuildModeStarted(object sender, AC.TowerName towerName)
-    {
-        _buildType = towerName;
-        _isBuildModeActive = true;
-        OnBuildModeStartedEvent?.Invoke(sender, towerName);
-    }
-
-
-    public Vector2i? OnBuildModeEnded(object sender, AC.TowerName towerName)
-    {
-        _isBuildModeActive = false;
-        _isBuildValid = false;
-        return OnBuildModeEndedEvent?.Invoke(this, towerName);
-    }
-
-    private void VerifyAndBuild()
-    {
-        if (_isBuildValid)
-        {
-
-            var newTower = GetNode<AC>("/root/AC").GetTower(AC.TowerName.MachineGun);
-            if (newTower is null)
-            {
-                GD.PrintErr("Failed to load tower");
-                return;
-            }
-            newTower.Position = _buildLocation;
-            newTower.IsBuilt = true;
-            newTower.Rotate(-Mathf.Pi / 2);
-            _map!.AddChild(newTower, true);
-            var ac = GetNode<AC>("/root/AC");
-            _map!.SetCell(ac.GetMapLayer(AC.MapLayerName.Towers), _buildTile, 1, new Vector2i(0, 0));
-        }
-    }
-
-
-    #endregion
 }
