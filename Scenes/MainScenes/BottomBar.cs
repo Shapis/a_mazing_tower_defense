@@ -21,7 +21,8 @@ public partial class BottomBar : TextureRect
     private List<AC.TowerType> _towerBank = new List<AC.TowerType>
     {
         AC.TowerType.GunTurret,
-        AC.TowerType.GunTurret
+        AC.TowerType.GunTurret,
+        AC.TowerType.DualGunTurret
     };
 
     internal void AddTower(AC.TowerType towerType)

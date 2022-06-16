@@ -92,6 +92,7 @@ public partial class EnemyPath2D : Path2D
         return true;
     }
 
+    // This exists so we can update the Path even if the path is blocked. It'll consider as if the current tile that you are mousing over is empty.
     private void GenerateSafePath()
     {
         _pathList.Clear();

@@ -1,3 +1,4 @@
 res://Scenes/Maps/Map.tscn
 res://Resources/Fonts/kenney_future_narrow.tres
 res://Scenes/MainScenes/GameScene.tscn
+res://Scenes/Towers/GunTurret.tscn

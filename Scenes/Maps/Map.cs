@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class Map : TileMap
 {
@@ -19,8 +20,8 @@ public partial class Map : TileMap
 
     internal bool VerifyAndBuildTower(AC.TowerType towerType)
     {
-        var buildTile = VerifyBuildLocation().Item1;
-        var isBlocked = VerifyBuildLocation().Item2;
+        var buildTile = VerifyBuildLocation(towerType).Item1;
+        var isBlocked = VerifyBuildLocation(towerType).Item2;
 
         if (buildTile is null || isBlocked)
         {
@@ -28,8 +29,6 @@ public partial class Map : TileMap
         }
 
         var nullSafeBuildTile = (Vector2i)buildTile;
-
-        var tup2 = VerifyBuildLocation().Item2;
 
         var newTower = GetNode<AC>("/root/AC").GetTower(towerType);
         if (newTower is null)
@@ -47,11 +46,12 @@ public partial class Map : TileMap
         return true;
     }
 
-    // The Vector2i returns null if outside the map, or the tile index if in the map, and the bool returns whether the tile is blocked or not.
-    internal Tuple<Vector2i?, bool> VerifyBuildLocation()
+    // The Vector2i returns null if outside the map, or the tile index if in the map, and the bool returns whether the tile is blocked or not. And if it is blocked by a tower Ac.TowerType returns the Tower that is blocking it.
+    internal Tuple<Vector2i?, bool, AC.TowerType?> VerifyBuildLocation(AC.TowerType towerType)
     {
         Vector2 mousePosition = GetGlobalMousePosition();
 
+        AC.TowerType? towerInPosition = null;
         var currentTile = WorldToMap(mousePosition);
         var tilePosition = MapToWorld(currentTile);
 
@@ -71,6 +71,18 @@ public partial class Map : TileMap
             {
                 continue;
             }
+            else if (i == (int)AC.MapLayerName.Towers)
+            {
+                if (GetCellSourceId(i, currentTile, true) != -1)
+                {
+                    isCellBlocked = true;
+                    var ac = GetNode<AC>("/root/AC");
+
+                    MapToWorld(currentTile);
+                    towerInPosition = towerType;
+                }
+                continue;
+            }
             if (GetCellSourceId(i, currentTile, true) != -1)
             {
                 isCellBlocked = true;
@@ -87,17 +99,17 @@ public partial class Map : TileMap
         if (!isCellBlocked && doesCellExist && isReachable)
         {
             // UpdateTowerPreview(tilePosition, "1eff0096");
-            return new Tuple<Vector2i?, bool>(currentTile, false);
+            return new Tuple<Vector2i?, bool, AC.TowerType?>(currentTile, false, towerInPosition);
         }
         else if (!doesCellExist)
         {
             // UpdateTowerPreview(mousePosition, "ff2031b8");
-            return new Tuple<Vector2i?, bool>(null, true);
+            return new Tuple<Vector2i?, bool, AC.TowerType?>(null, true, towerInPosition);
         }
         else
         {
             // UpdateTowerPreview(tilePosition, "ff2031b8");
-            return new Tuple<Vector2i?, bool>(currentTile, true);
+            return new Tuple<Vector2i?, bool, AC.TowerType?>(currentTile, true, towerInPosition);
         }
     }
 }

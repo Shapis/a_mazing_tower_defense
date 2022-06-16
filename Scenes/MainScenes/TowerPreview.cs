@@ -6,6 +6,7 @@ public partial class TowerPreview : Control
     [Export]
     private Texture2D? _rangeOverlayTexture;
     private BaseTower? _dragTower;
+    private AC.TowerType _towerType;
     private Sprite2D? _rangeTexture;
     private bool _isBuildModeActive = false;
     private Map? _map;
@@ -17,8 +18,11 @@ public partial class TowerPreview : Control
             return;
         }
 
-        var currentPosition = _map.VerifyBuildLocation().Item1;
-        var isBlocked = _map.VerifyBuildLocation().Item2;
+        var buildLocationInfo = _map.VerifyBuildLocation(_towerType);
+        var currentPosition = buildLocationInfo.Item1;
+        var isBlocked = buildLocationInfo.Item2;
+        var towerInPosition = buildLocationInfo.Item3;
+        GD.Print(_map.VerifyBuildLocation(_towerType).Item3.ToString() + _towerType.ToString());
         if (_isBuildModeActive)
         {
             if (currentPosition is not null && !isBlocked)
@@ -29,6 +33,10 @@ public partial class TowerPreview : Control
             {
                 UpdateTower(GetGlobalMousePosition(), "ff2031b8");
             }
+            else if (towerInPosition == _towerType)
+            {
+                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "216cffb8");
+            }
             else
             {
                 UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "ff2031b8");
@@ -36,9 +44,10 @@ public partial class TowerPreview : Control
         }
     }
 
-    private void SetTower(AC.TowerType towerName)
+    private void SetTower(AC.TowerType towerType)
     {
-        _dragTower = GetNode<AC>("/root/AC").GetTower(towerName);
+        _towerType = towerType;
+        _dragTower = GetNode<AC>("/root/AC").GetTower(towerType);
 
         if (_dragTower is null)
         {
