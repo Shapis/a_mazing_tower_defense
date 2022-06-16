@@ -17,12 +17,11 @@ public partial class GameScene : Node2D
     [Export]
     private NodePath? _towerPreviewPath;
     private TowerPreview? _towerPreview;
+
     private bool _isBuildModeActive = false;
     private int _currentWave = 0;
     private int _enemiesInWave = 0;
 
-    // public event Action<object, AC.TowerType>? OnBuildModeStartedEvent;
-    // public event Func<object, AC.TowerType, Vector2i?>? OnBuildModeEndedEvent;
     public override void _Ready()
     {
         _bottomBar = GetNode<BottomBar>(_bottomBarPath);

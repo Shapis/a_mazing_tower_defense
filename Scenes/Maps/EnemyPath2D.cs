@@ -27,16 +27,34 @@ public partial class EnemyPath2D : Path2D
         //GeneratePath();
     }
 
+    // Returns the x index of the free tile at the top and bottom of the game screen. This exists so the path2d can move around if an initial or final tile of it gets blocked.
     private Vector2i? GetInitialAndFinalPositions(AStarPathFinder aspf)
     {
-        // for (int k = 1; k < 5; k++)
-        // {
-        //     if (_tileMap!.GetCellSourceId(k, new Vector2i(i, j), true) != -1)
-        //     {
-        //         aspf.Grid[i, j].IsAccessible = false;
-        //     }
-        // }
-        return null;
+        int topIndex = 0;
+        int bottomIndex = 0;
+
+        int j = 4;
+        for (float i = 0; i < 9; i++)
+        {
+            j += (int)(Math.Pow(-1, i) * i);
+            if (aspf.Grid[j, 0].IsAccessible)
+            {
+                topIndex = j;
+                break;
+            }
+        }
+
+        j = 4;
+        for (int i = 0; i < 9; i++)
+        {
+            j += (int)(Math.Pow(-1, i) * i);
+            if (aspf.Grid[j, 13].IsAccessible)
+            {
+                bottomIndex = j;
+                break;
+            }
+        }
+        return new Vector2i(topIndex, bottomIndex);
     }
 
     // Returns whether the the path could reach its destination or not
@@ -45,8 +63,16 @@ public partial class EnemyPath2D : Path2D
         _pathList.Clear();
         AStarPathFinder aspf = new AStarPathFinder(_tileMap!);
         aspf.GenerateNavMesh();
-        GetInitialAndFinalPositions(aspf);
-        var path = aspf.FindPath(aspf.Grid[4, 0], aspf.Grid[4, 13]);
+        Vector2i? startingPos = GetInitialAndFinalPositions(aspf);
+        if (startingPos == null)
+        {
+            GD.PrintErr("Failed to get (starting/ending) index position of EnemyPath2D");
+            return false;
+        }
+        var path = aspf.FindPath(
+            aspf.Grid[startingPos.Value.x, 0],
+            aspf.Grid[startingPos.Value.y, 13]
+        );
 
         if (path == null)
         {
