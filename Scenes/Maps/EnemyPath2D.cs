@@ -77,6 +77,7 @@ public partial class EnemyPath2D : Path2D
         if (path == null)
         {
             GenerateSafePath();
+            BuildPath2D();
             return false;
         }
 
@@ -87,6 +88,7 @@ public partial class EnemyPath2D : Path2D
             _pathList.Add(item.Position);
         }
         _pathList.Add(path![path.Count - 1].Position - new Vector2(0, -64));
+        BuildPath2D();
         return true;
     }
 
@@ -119,7 +121,7 @@ public partial class EnemyPath2D : Path2D
         }
     }
 
-    public void BuildPath2D()
+    private void BuildPath2D()
     {
         Curve2D temp = new Curve2D();
         foreach (var item in _pathList.ToArray())

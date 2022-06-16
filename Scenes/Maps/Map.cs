@@ -43,6 +43,7 @@ public partial class Map : TileMap
         _towerContainer!.AddChild(newTower, true);
         var ac = GetNode<AC>("/root/AC");
         SetCell(ac.GetMapLayer(AC.MapLayerName.Towers), nullSafeBuildTile, 1, new Vector2i(0, 0));
+        EraseCell((int)AC.MapLayerName.Props, nullSafeBuildTile);
         return true;
     }
 
@@ -66,6 +67,10 @@ public partial class Map : TileMap
         bool isCellBlocked = false;
         for (int i = 1; i <= 4; i++)
         {
+            if (i == (int)AC.MapLayerName.Props)
+            {
+                continue;
+            }
             if (GetCellSourceId(i, currentTile, true) != -1)
             {
                 isCellBlocked = true;
@@ -76,7 +81,6 @@ public partial class Map : TileMap
 
         // If the path couldnt be generated return false and dont build the path2d.
         var isReachable = _enemyPath2D!.GeneratePath();
-        _enemyPath2D.BuildPath2D();
 
         ClearLayer((int)AC.MapLayerName.TowerPreviews);
 
