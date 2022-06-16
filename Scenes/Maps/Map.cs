@@ -76,10 +76,7 @@ public partial class Map : TileMap
 
         // If the path couldnt be generated return false and dont build the path2d.
         var isReachable = _enemyPath2D!.GeneratePath();
-        if (isReachable)
-        {
-            _enemyPath2D.BuildPath2D();
-        }
+        _enemyPath2D.BuildPath2D();
 
         ClearLayer((int)AC.MapLayerName.TowerPreviews);
 

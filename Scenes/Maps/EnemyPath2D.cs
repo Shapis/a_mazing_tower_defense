@@ -76,6 +76,7 @@ public partial class EnemyPath2D : Path2D
 
         if (path == null)
         {
+            GenerateSafePath();
             return false;
         }
 
@@ -87,6 +88,27 @@ public partial class EnemyPath2D : Path2D
         }
         _pathList.Add(path![path.Count - 1].Position - new Vector2(0, -64));
         return true;
+    }
+
+    private void GenerateSafePath()
+    {
+        _pathList.Clear();
+        _tileMap!.ClearLayer((int)AC.MapLayerName.TowerPreviews);
+        AStarPathFinder aspf = new AStarPathFinder(_tileMap!);
+        aspf.GenerateNavMesh();
+        Vector2i? startingPos = GetInitialAndFinalPositions(aspf);
+
+        var path = aspf.FindPath(
+            aspf.Grid[startingPos!.Value.x, 0],
+            aspf.Grid[startingPos.Value.y, 13]
+        );
+        _pathList.Add(path![0].Position - new Vector2(0, 64));
+
+        foreach (var item in path)
+        {
+            _pathList.Add(item.Position);
+        }
+        _pathList.Add(path![path.Count - 1].Position - new Vector2(0, -64));
     }
 
     public override void _Draw()
