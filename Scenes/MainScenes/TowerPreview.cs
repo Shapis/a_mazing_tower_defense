@@ -6,10 +6,10 @@ public partial class TowerPreview : Control
     [Export]
     private Texture2D? _rangeOverlayTexture;
     private BaseTower? _dragTower;
-    private AC.TowerType _towerType;
     private Sprite2D? _rangeTexture;
     private bool _isBuildModeActive = false;
     private Map? _map;
+    private AC.TowerType _originalDragTower;
 
     public sealed override void _Process(float delta)
     {
@@ -18,38 +18,64 @@ public partial class TowerPreview : Control
             return;
         }
 
-        var buildLocationInfo = _map.VerifyBuildLocation(_towerType);
+        var buildLocationInfo = _map.VerifyBuildLocation(_dragTower!.TowerType);
         var currentPosition = buildLocationInfo.Item1;
         var isBlocked = buildLocationInfo.Item2;
         var towerInPosition = buildLocationInfo.Item3;
 
         if (_isBuildModeActive)
         {
-            if (currentPosition is not null && !isBlocked)
+            if (currentPosition is null)
             {
-                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "1eff0096");
-            }
-            else if (currentPosition is null)
-            {
+                if (_dragTower!.TowerType != _originalDragTower)
+                {
+                    RemoveDragTower();
+                    SetTower(_originalDragTower);
+                }
                 UpdateTower(GetGlobalMousePosition(), "ff2031b8");
             }
-            else if (
-                towerInPosition?.TowerType == _towerType
-                && towerInPosition.UpgradesToType is not null
-            )
+            else if (!isBlocked)
             {
-                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "216cffb8");
+                if (_dragTower!.TowerType != _originalDragTower)
+                {
+                    RemoveDragTower();
+                    SetTower(_originalDragTower);
+                }
+                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "1eff0096");
+            }
+            else if (towerInPosition?.TowerType != _originalDragTower)
+            {
+                if (_dragTower!.TowerType != _originalDragTower)
+                {
+                    RemoveDragTower();
+                    SetTower(_originalDragTower);
+                }
+                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "ff2031b8");
+            }
+            else if (towerInPosition.UpgradesToType == null)
+            {
+                if (_dragTower!.TowerType != _originalDragTower)
+                {
+                    RemoveDragTower();
+                    SetTower(_originalDragTower);
+                }
+                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "ff2031b8");
             }
             else
             {
-                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "ff2031b8");
+                if (_dragTower!.TowerType != towerInPosition.UpgradesToType)
+                {
+                    RemoveDragTower();
+                    SetTower((AC.TowerType)towerInPosition.UpgradesToType);
+                }
+
+                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "216cffb8");
             }
         }
     }
 
     private void SetTower(AC.TowerType towerType)
     {
-        _towerType = towerType;
         _dragTower = GetNode<AC>("/root/AC").GetTower(towerType);
 
         if (_dragTower is null)
@@ -87,6 +113,7 @@ public partial class TowerPreview : Control
             GD.PrintErr(this, "Drag tower is null");
             return;
         }
+
         if (_dragTower.Modulate != new Color(colorHex))
         {
             _dragTower.Modulate = new Color(colorHex);
@@ -99,9 +126,10 @@ public partial class TowerPreview : Control
         }
     }
 
-    internal void InitiateBuildModePreview(AC.TowerType towerName, Map? map)
+    internal void InitiateBuildModePreview(AC.TowerType towerType, Map? map)
     {
-        SetTower(towerName);
+        _originalDragTower = towerType;
+        SetTower(towerType);
         _isBuildModeActive = true;
         _map = map;
     }

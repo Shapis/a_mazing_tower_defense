@@ -8,6 +8,7 @@
 radius = 175.0
 
 [node name="DualGunTurret" type="Node2D"]
+z_index = 1
 script = ExtResource( "1_miky0" )
 _rangeCollisionShape2DPath = NodePath("Range/CollisionShape2D")
 _animationPlayerPath = NodePath("AnimationPlayer")

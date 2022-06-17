@@ -5,7 +5,6 @@ using System.Linq;
 
 public partial class EnemyPath2D : Path2D
 {
-    private NavigationAgent2D? _navAgent;
     private List<Vector2> _pathList = new List<Vector2>();
 
     [Export]
