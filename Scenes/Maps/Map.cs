@@ -18,10 +18,50 @@ public partial class Map : TileMap
         _enemyPath2D = GetNode<EnemyPath2D>(_enemyPath2DPath);
     }
 
+    private AC.TowerType? GetTowerTypeAt(Vector2 position)
+    {
+        foreach (var item in _towerContainer!.GetChildren().OfType<BaseTower>())
+        {
+            if (item.Position == position)
+            {
+                return item.TowerType;
+            }
+        }
+        return null;
+    }
+
+    private BaseTower? GetTowerAt(Vector2 position)
+    {
+        foreach (var item in _towerContainer!.GetChildren().OfType<BaseTower>())
+        {
+            if (item.Position == position)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    // Verifies if the build location is valid and builds tower, also verifies if there's already a matching tower in the location ,if so upgrades the tower.
     internal bool VerifyAndBuildTower(AC.TowerType towerType)
     {
-        var buildTile = VerifyBuildLocation(towerType).Item1;
-        var isBlocked = VerifyBuildLocation(towerType).Item2;
+        var verification = VerifyBuildLocation(towerType);
+
+        var buildTile = verification.Item1;
+        var isBlocked = verification.Item2;
+        var blockedByTowerOfType = verification.Item3;
+
+        if (blockedByTowerOfType is not null)
+        {
+            if (
+                towerType == blockedByTowerOfType.TowerType
+                && blockedByTowerOfType.UpgradesToType != null
+            )
+            {
+                blockedByTowerOfType.UpgradeTower();
+                return true;
+            }
+        }
 
         if (buildTile is null || isBlocked)
         {
@@ -47,11 +87,11 @@ public partial class Map : TileMap
     }
 
     // The Vector2i returns null if outside the map, or the tile index if in the map, and the bool returns whether the tile is blocked or not. And if it is blocked by a tower Ac.TowerType returns the Tower that is blocking it.
-    internal Tuple<Vector2i?, bool, AC.TowerType?> VerifyBuildLocation(AC.TowerType towerType)
+    internal Tuple<Vector2i?, bool, BaseTower?> VerifyBuildLocation(AC.TowerType towerType)
     {
         Vector2 mousePosition = GetGlobalMousePosition();
 
-        AC.TowerType? towerInPosition = null;
+        BaseTower? towerInPosition = null;
         var currentTile = WorldToMap(mousePosition);
         var tilePosition = MapToWorld(currentTile);
 
@@ -79,7 +119,7 @@ public partial class Map : TileMap
                     var ac = GetNode<AC>("/root/AC");
 
                     MapToWorld(currentTile);
-                    towerInPosition = towerType;
+                    towerInPosition = GetTowerAt(MapToWorld(currentTile));
                 }
                 continue;
             }
@@ -99,17 +139,17 @@ public partial class Map : TileMap
         if (!isCellBlocked && doesCellExist && isReachable)
         {
             // UpdateTowerPreview(tilePosition, "1eff0096");
-            return new Tuple<Vector2i?, bool, AC.TowerType?>(currentTile, false, towerInPosition);
+            return new Tuple<Vector2i?, bool, BaseTower?>(currentTile, false, towerInPosition);
         }
         else if (!doesCellExist)
         {
             // UpdateTowerPreview(mousePosition, "ff2031b8");
-            return new Tuple<Vector2i?, bool, AC.TowerType?>(null, true, towerInPosition);
+            return new Tuple<Vector2i?, bool, BaseTower?>(null, true, towerInPosition);
         }
         else
         {
             // UpdateTowerPreview(tilePosition, "ff2031b8");
-            return new Tuple<Vector2i?, bool, AC.TowerType?>(currentTile, true, towerInPosition);
+            return new Tuple<Vector2i?, bool, BaseTower?>(currentTile, true, towerInPosition);
         }
     }
 }

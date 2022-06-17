@@ -5,6 +5,10 @@ using System.Linq;
 
 public abstract partial class BaseTower : Node2D
 {
+    public abstract AC.TowerType TowerType { get; }
+
+    public abstract AC.TowerType? UpgradesToType { get; }
+
     [Export]
     public float Range { get; private set; } = 600f;
 
@@ -25,6 +29,24 @@ public abstract partial class BaseTower : Node2D
     private List<BaseEnemy> _targets = new List<BaseEnemy>();
     private BaseEnemy? _currentTarget;
     private bool _isReloaded = true;
+
+    public void UpgradeTower()
+    {
+        var ac = GetNode<AC>("/root/AC");
+        if (UpgradesToType is not null)
+        {
+            var newTower = ac.GetTower((AC.TowerType)UpgradesToType!);
+            newTower.Position = Position;
+            newTower.IsBuilt = true;
+            newTower.Rotate(-Mathf.Pi / 2);
+            GetParent().AddChild(newTower);
+            QueueFree();
+        }
+        else
+        {
+            GD.Print("Tower has been upgraded to the max!");
+        }
+    }
 
     public sealed override void _Ready()
     {

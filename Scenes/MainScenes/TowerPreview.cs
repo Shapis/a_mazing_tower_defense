@@ -22,7 +22,7 @@ public partial class TowerPreview : Control
         var currentPosition = buildLocationInfo.Item1;
         var isBlocked = buildLocationInfo.Item2;
         var towerInPosition = buildLocationInfo.Item3;
-        GD.Print(_map.VerifyBuildLocation(_towerType).Item3.ToString() + _towerType.ToString());
+
         if (_isBuildModeActive)
         {
             if (currentPosition is not null && !isBlocked)
@@ -33,7 +33,7 @@ public partial class TowerPreview : Control
             {
                 UpdateTower(GetGlobalMousePosition(), "ff2031b8");
             }
-            else if (towerInPosition == _towerType)
+            else if (towerInPosition!.TowerType == _towerType)
             {
                 UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "216cffb8");
             }
