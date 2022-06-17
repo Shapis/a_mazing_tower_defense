@@ -25,9 +25,16 @@ public partial class BottomBar : TextureRect
         AC.TowerType.DualGunTurret
     };
 
-    internal void AddTower(AC.TowerType towerType)
+    internal void AddTower(AC.TowerType towerType, bool addAtBeggining = false)
     {
-        _towerBank.Add(towerType);
+        if (!addAtBeggining)
+        {
+            _towerBank.Add(towerType);
+        }
+        else
+        {
+            _towerBank.Insert(0, towerType);
+        }
         UpdateAllButtons();
     }
 

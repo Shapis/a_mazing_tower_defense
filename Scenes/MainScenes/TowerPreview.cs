@@ -33,7 +33,10 @@ public partial class TowerPreview : Control
             {
                 UpdateTower(GetGlobalMousePosition(), "ff2031b8");
             }
-            else if (towerInPosition!.TowerType == _towerType)
+            else if (
+                towerInPosition?.TowerType == _towerType
+                && towerInPosition.UpgradesToType is not null
+            )
             {
                 UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "216cffb8");
             }

@@ -30,8 +30,12 @@ public partial class Map : TileMap
         return null;
     }
 
-    private BaseTower? GetTowerAt(Vector2 position)
+    public BaseTower? GetTowerAt(Vector2 position)
     {
+        // this is here so any positions within the tile will return the center of the tile, which is the position that the tower is in
+        var temp = WorldToMap(position);
+        position = MapToWorld(temp);
+
         foreach (var item in _towerContainer!.GetChildren().OfType<BaseTower>())
         {
             if (item.Position == position)
@@ -42,7 +46,7 @@ public partial class Map : TileMap
         return null;
     }
 
-    // Verifies if the build location is valid and builds tower, also verifies if there's already a matching tower in the location ,if so upgrades the tower.
+    // Verifies if the build location is valid and builds tower, also verifies if there's already a matching tower in the location ,if so upgrades the tower. Returns whether the tower was sucessful built/upgraded or not
     internal bool VerifyAndBuildTower(AC.TowerType towerType)
     {
         var verification = VerifyBuildLocation(towerType);
@@ -84,6 +88,18 @@ public partial class Map : TileMap
         SetCell(ac.GetMapLayer(AC.MapLayerName.Towers), nullSafeBuildTile, 1, new Vector2i(0, 0));
         EraseCell((int)AC.MapLayerName.Props, nullSafeBuildTile);
         return true;
+    }
+
+    internal void RemoveTowerAt(Vector2 vector2)
+    {
+        var tower = GetTowerAt(vector2);
+        if (tower is null)
+        {
+            return;
+        }
+        tower.QueueFree();
+        var ac = GetNode<AC>("/root/AC");
+        EraseCell((int)AC.MapLayerName.Towers, WorldToMap(vector2));
     }
 
     // The Vector2i returns null if outside the map, or the tile index if in the map, and the bool returns whether the tile is blocked or not. And if it is blocked by a tower Ac.TowerType returns the Tower that is blocking it.

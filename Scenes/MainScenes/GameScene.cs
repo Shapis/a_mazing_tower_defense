@@ -63,11 +63,38 @@ public partial class GameScene : Node2D
         _towerPreview!.InitiateBuildModePreview(towerName, _map);
     }
 
+    private BaseTower? _currentTower;
+
     public sealed override void _UnhandledInput(InputEvent inputEvent)
     {
-        if (inputEvent.IsActionPressed("ui_accept"))
+        if (inputEvent.IsActionPressed("ui_cancel"))
         {
             _bottomBar!.AddTower(AC.TowerType.GunTurret);
+        }
+
+        if (inputEvent.IsActionPressed("ui_accept"))
+        {
+            _currentTower = _map!.GetTowerAt(GetGlobalMousePosition());
+
+            if (_currentTower is not null)
+            {
+                _towerPreview!.InitiateBuildModePreview(_currentTower.TowerType, _map);
+                _map!.RemoveTowerAt(GetGlobalMousePosition());
+            }
+        }
+
+        if (inputEvent.IsActionReleased("ui_accept"))
+        {
+            if (_currentTower is not null)
+            {
+                _towerPreview!.EndBuildModePreview();
+                if (!_map!.VerifyAndBuildTower(_currentTower.TowerType))
+                {
+                    _bottomBar!.AddTower(_currentTower.TowerType, true);
+                }
+
+                _currentTower = null;
+            }
         }
     }
 
