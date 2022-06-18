@@ -89,7 +89,7 @@ public abstract partial class BaseTower : Node2D
     {
         _isReloaded = false;
         Shoot(target);
-        await ToSignal(GetTree().CreateTimer(RateOfFire), "timeout");
+        await ToSignal(GetTree().CreateTimer(1 / RateOfFire), "timeout");
         _isReloaded = true;
     }
 

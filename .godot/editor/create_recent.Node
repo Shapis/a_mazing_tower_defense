@@ -1,7 +1,10 @@
+AnimationPlayer
+Button
+VBoxContainer
+Control
 Node
 NavigationRegion2D
 NavigationAgent2D
-Control
 Label
 Sprite2D
 Node2D
@@ -11,7 +14,6 @@ HBoxContainer
 ColorRect
 AnimatedSprite2D
 Position2D
-AnimationPlayer
 CollisionShape2D
 Area2D
 CharacterBody2D
@@ -19,6 +21,5 @@ PathFollow2D
 Path2D
 TextureButton
 CanvasLayer
-VBoxContainer
 MarginContainer
 TileMap

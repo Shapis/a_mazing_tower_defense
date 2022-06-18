@@ -4,8 +4,11 @@ using System.Collections.Generic;
 
 public partial class AC : Node
 {
-    [Export] private List<PackedScene>? _packedScenes;
-    [Export] private List<PackedScene>? _towers;
+    [Export]
+    private List<PackedScene>? _packedScenes;
+
+    [Export]
+    private List<PackedScene>? _towers;
 
     public sealed override void _Ready()
     {
@@ -21,13 +24,12 @@ public partial class AC : Node
         _towers = temp._towers;
 
         temp.Dispose();
-
     }
 
     public enum SceneName
     {
         GameScene,
-
+        MainMenu,
     }
 
     public PackedScene GetPackedScene(AC.SceneName sceneName)
@@ -60,6 +62,3 @@ public partial class AC : Node
         return (int)mapLayerName;
     }
 }
-
-
-

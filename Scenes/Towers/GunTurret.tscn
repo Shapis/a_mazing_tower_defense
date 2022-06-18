@@ -8,7 +8,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_5bhwa"]
 radius = 175.0
 
-[sub_resource type="Animation" id="Animation_1dhul"]
+[sub_resource type="Animation" id="Animation_8khkh"]
 resource_name = "Fire"
 length = 0.15
 step = 0.05
@@ -25,9 +25,9 @@ tracks/0/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_72aqw"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ljkq3"]
 _data = {
-"Fire": SubResource( "Animation_1dhul" )
+"Fire": SubResource( "Animation_8khkh" )
 }
 
 [node name="GunTurret" type="Node2D"]
@@ -60,7 +60,7 @@ shape = SubResource( "CircleShape2D_5bhwa" )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource( "AnimationLibrary_72aqw" )
+"": SubResource( "AnimationLibrary_ljkq3" )
 }
 
 [connection signal="body_entered" from="Range" to="." method="OnRangeBodyEntered"]

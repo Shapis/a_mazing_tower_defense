@@ -70,8 +70,8 @@ public partial class GameScene : Node2D
         if (inputEvent.IsActionPressed("ui_cancel"))
         {
             _bottomBar!.AddTower(AC.TowerType.GunTurret);
+            // GetViewport().SetInputAsHandled();
         }
-
         if (inputEvent.IsActionPressed("ui_accept"))
         {
             _currentTower = _map!.GetTowerAt(GetGlobalMousePosition());
