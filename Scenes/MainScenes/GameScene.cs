@@ -19,8 +19,8 @@ public partial class GameScene : Node2D
     private TowerPreview? _towerPreview;
 
     private bool _isBuildModeActive = false;
-    private int _currentWave = 0;
-    private int _enemiesInWave = 0;
+
+    private WaveSpawner? _waveSpawner;
 
     public override void _Ready()
     {
@@ -46,9 +46,17 @@ public partial class GameScene : Node2D
             return;
         }
 
+        _waveSpawner = new WaveSpawner();
+        _waveSpawner.OnWaveEndedEvent += OnWaveEnded;
+
         _bottomBar.OnPausePlayPressedEvent += OnPausePlayPressed;
         _bottomBar.OnBuildBtnDown += OnBuildBtnDown;
         _bottomBar.OnBuildBtnUp += OnBuildBtnUp;
+    }
+
+    private void OnWaveEnded(object sender, int mobsThatGotThrough)
+    {
+        GD.Print($"Wave ended. {mobsThatGotThrough} mobs got through");
     }
 
     private bool OnBuildBtnUp(object sender, AC.TowerType towerType)
@@ -104,9 +112,10 @@ public partial class GameScene : Node2D
         {
             // CancelBuildMode();
         }
-        if (_currentWave == 0)
+        if (_waveSpawner!.CurrentWave == 0)
         {
-            StartNextWave();
+            var ac = GetNode<AC>("/root/AC");
+            _waveSpawner.StartNextWave(_map!, ac);
             return true;
         }
         else
@@ -114,43 +123,4 @@ public partial class GameScene : Node2D
             return false;
         }
     }
-
-    #region Wave Methods
-
-    private List<Tuple<string, float>> RetrieveWaveData()
-    {
-        var waveData = new List<Tuple<string, float>>();
-        waveData.Add(new Tuple<string, float>("BlueTank", 1.7f));
-        waveData.Add(new Tuple<string, float>("BlueTank", 0.1f));
-        _enemiesInWave = waveData.Count;
-        return waveData;
-    }
-
-    private async void StartNextWave()
-    {
-        _currentWave++;
-        var waveData = RetrieveWaveData();
-        await ToSignal(GetTree().CreateTimer(0.2), "timeout");
-        SpawnEnemies(waveData);
-    }
-
-    private async void SpawnEnemies(List<Tuple<string, float>> waveData)
-    {
-        foreach (var item in waveData)
-        {
-            var newEnemy =
-                GD.Load<PackedScene>("res://Scenes/Enemies/" + item.Item1 + ".tscn").Instantiate()
-                as BaseEnemy;
-            if (_map is null)
-            {
-                GD.Print(this, "Map is null");
-                return;
-            }
-
-            _map.GetChildren().OfType<Path2D>().First().AddChild(newEnemy, true);
-            await ToSignal(GetTree().CreateTimer(item.Item2), "timeout");
-        }
-    }
-
-    #endregion
 }

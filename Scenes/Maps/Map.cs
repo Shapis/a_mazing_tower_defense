@@ -85,7 +85,7 @@ public partial class Map : TileMap
         newTower.Rotate(-Mathf.Pi / 2);
         _towerContainer!.AddChild(newTower, true);
         var ac = GetNode<AC>("/root/AC");
-        SetCell(ac.GetMapLayer(AC.MapLayerName.Towers), nullSafeBuildTile, 1, new Vector2i(0, 0));
+        SetCell((int)AC.MapLayerName.Towers, nullSafeBuildTile, 1, new Vector2i(0, 0));
         EraseCell((int)AC.MapLayerName.Props, nullSafeBuildTile);
         return true;
     }

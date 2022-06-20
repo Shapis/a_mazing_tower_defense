@@ -11,6 +11,12 @@ public partial class BlueTank : BaseEnemy
     private Position2D? _projectileSpawnPoint;
     private Random _rng = new Random();
 
+    public override int Rarity
+    {
+        get => 0;
+        protected set => throw new NotImplementedException();
+    }
+
     protected sealed override void __Ready()
     {
         _projectileSpawnPoint = GetNode<Position2D>(_projectileSpawnPointPath);

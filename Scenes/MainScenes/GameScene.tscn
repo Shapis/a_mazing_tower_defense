@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cvss6jxrv56sp"]
+[gd_scene load_steps=19 format=3 uid="uid://cvss6jxrv56sp"]
 
 [ext_resource type="Script" path="res://Scenes/MainScenes/GameScene.cs" id="1_ovsd1"]
 [ext_resource type="PackedScene" uid="uid://cglesm4bjo0s4" path="res://Scenes/Maps/Map.tscn" id="1_sfkm7"]
@@ -15,12 +15,19 @@
 [ext_resource type="Script" path="res://Scenes/MainScenes/TowerPreview.cs" id="11_pyhkk"]
 [ext_resource type="Texture2D" uid="uid://c8v31l1yendta" path="res://Assets/UI/HPbar.jpg" id="12_8skfk"]
 [ext_resource type="Texture2D" uid="uid://c0eo1qk7tjn6d" path="res://Assets/UI/Icons/home.png" id="12_ddsuc"]
+[ext_resource type="Script" path="res://Scenes/MainScenes/TowerSelectionMenu.cs" id="16_c70kl"]
+[ext_resource type="Texture2D" uid="uid://bw4bwm3x4loax" path="res://Assets/UI/Buttons/blue_panel.png" id="16_cbdce"]
+
+[sub_resource type="Texture2D" id="Texture2D_txj2b"]
+resource_local_to_scene = false
+resource_name = ""
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( "1_ovsd1" )
 _bottomBarPath = NodePath("UI/HUD/BottomBar")
 _mapPath = NodePath("Map")
 _towerPreviewPath = NodePath("UI/HUD/TowerPreview")
+metadata/_edit_horizontal_guides_ = [-61.0]
 
 [node name="Map" parent="." instance=ExtResource( "1_sfkm7" )]
 
@@ -276,36 +283,325 @@ offset_left = 576.0
 offset_right = 576.0
 offset_bottom = 60.0
 
-[node name="TowerSelection" type="Control" parent="UI"]
+[node name="TowerSelectionMenu" type="TextureRect" parent="UI"]
+self_modulate = Color(1, 1, 1, 0.784314)
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_vertical = 8
+texture = ExtResource( "9_q2220" )
+ignore_texture_size = true
+script = ExtResource( "16_c70kl" )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelection"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -454.0
+offset_right = 288.0
+offset_bottom = 454.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+metadata/_edit_layout_mode = 1
+
+[node name="Label" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer"]
+offset_left = 145.0
+offset_right = 430.0
+offset_bottom = 48.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 40
+text = "Pick a tower"
+
+[node name="TowerSelection1" type="TextureButton" parent="UI/TowerSelectionMenu/VBoxContainer"]
+minimum_size = Vector2(350, 300)
+offset_left = 113.0
+offset_top = 58.0
+offset_right = 463.0
+offset_bottom = 358.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( "16_cbdce" )
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_layout_mode = 1
 
-[node name="Button" type="Button" parent="UI/TowerSelection/VBoxContainer"]
-minimum_size = Vector2(300, 300)
-offset_left = 138.0
-offset_right = 438.0
+[node name="Control" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+minimum_size = Vector2(0, 5)
+offset_right = 350.0
+offset_bottom = 5.0
+
+[node name="RarityBar" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+minimum_size = Vector2(320, 5)
+offset_left = 15.0
+offset_top = 9.0
+offset_right = 335.0
+offset_bottom = 14.0
+size_flags_horizontal = 4
+texture = SubResource( "Texture2D_txj2b" )
+ignore_texture_size = true
+
+[node name="Type" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+offset_left = 139.0
+offset_top = 18.0
+offset_right = 210.0
+offset_bottom = 44.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 20
+text = "Tower"
+
+[node name="TowerType" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+offset_left = 111.0
+offset_top = 48.0
+offset_right = 239.0
+offset_bottom = 74.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 20
+text = "Gun Turret"
+
+[node name="Control2" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+minimum_size = Vector2(0, 1)
+offset_top = 78.0
+offset_right = 350.0
+offset_bottom = 79.0
+
+[node name="Base" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+minimum_size = Vector2(130, 130)
+offset_left = 110.0
+offset_top = 83.0
+offset_right = 240.0
+offset_bottom = 213.0
+size_flags_horizontal = 4
+texture = ExtResource( "3_vct74" )
+ignore_texture_size = true
+
+[node name="Tower" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer/Base"]
+minimum_size = Vector2(130, 130)
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 65.0
+size_flags_horizontal = 4
+texture = ExtResource( "3_vct74" )
+ignore_texture_size = true
+
+[node name="Control4" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+minimum_size = Vector2(0, 1)
+offset_top = 217.0
+offset_right = 350.0
+offset_bottom = 218.0
+
+[node name="Description" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+minimum_size = Vector2(310, 0)
+offset_left = 20.0
+offset_top = 222.0
+offset_right = 330.0
+offset_bottom = 292.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 18
+text = "This is a quick firing turret with great tracking and average damage"
+autowrap_mode = 3
+clip_text = true
+
+[node name="Control3" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+minimum_size = Vector2(0, 4)
+offset_top = 296.0
+offset_right = 350.0
 offset_bottom = 300.0
-size_flags_horizontal = 4
 
-[node name="Button2" type="Button" parent="UI/TowerSelection/VBoxContainer"]
-minimum_size = Vector2(300, 300)
-offset_left = 138.0
-offset_top = 304.0
-offset_right = 438.0
-offset_bottom = 604.0
+[node name="TowerSelection2" type="TextureButton" parent="UI/TowerSelectionMenu/VBoxContainer"]
+minimum_size = Vector2(350, 300)
+offset_left = 113.0
+offset_top = 368.0
+offset_right = 463.0
+offset_bottom = 668.0
 size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( "16_cbdce" )
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="Button3" type="Button" parent="UI/TowerSelection/VBoxContainer"]
-minimum_size = Vector2(300, 300)
-offset_left = 138.0
-offset_top = 608.0
-offset_right = 438.0
-offset_bottom = 908.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_layout_mode = 1
+
+[node name="Control" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+minimum_size = Vector2(0, 10)
+offset_right = 350.0
+offset_bottom = 10.0
+
+[node name="Type" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+offset_left = 139.0
+offset_top = 14.0
+offset_right = 210.0
+offset_bottom = 40.0
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 20
+text = "Tower"
+
+[node name="TowerType" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+offset_left = 111.0
+offset_top = 44.0
+offset_right = 239.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 20
+text = "Gun Turret"
+
+[node name="Control2" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+minimum_size = Vector2(0, 3)
+offset_top = 74.0
+offset_right = 350.0
+offset_bottom = 77.0
+
+[node name="Icon" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+minimum_size = Vector2(130, 130)
+offset_left = 110.0
+offset_top = 81.0
+offset_right = 240.0
+offset_bottom = 211.0
+size_flags_horizontal = 4
+texture = ExtResource( "3_vct74" )
+ignore_texture_size = true
+
+[node name="Control4" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+minimum_size = Vector2(0, 2)
+offset_top = 215.0
+offset_right = 350.0
+offset_bottom = 217.0
+
+[node name="Description" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+minimum_size = Vector2(310, 0)
+offset_left = 20.0
+offset_top = 221.0
+offset_right = 330.0
+offset_bottom = 291.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 18
+text = "This is a quick firing turret with great tracking and average damage"
+autowrap_mode = 3
+clip_text = true
+
+[node name="Control3" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+minimum_size = Vector2(0, 5)
+offset_top = 295.0
+offset_right = 350.0
+offset_bottom = 300.0
+
+[node name="TowerSelection3" type="TextureButton" parent="UI/TowerSelectionMenu/VBoxContainer"]
+minimum_size = Vector2(350, 300)
+offset_left = 113.0
+offset_top = 678.0
+offset_right = 463.0
+offset_bottom = 978.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( "16_cbdce" )
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_layout_mode = 1
+
+[node name="Control" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+minimum_size = Vector2(0, 10)
+offset_right = 350.0
+offset_bottom = 10.0
+
+[node name="Type" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+offset_left = 139.0
+offset_top = 14.0
+offset_right = 210.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 20
+text = "Tower"
+
+[node name="TowerType" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+offset_left = 111.0
+offset_top = 44.0
+offset_right = 239.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 20
+text = "Gun Turret"
+
+[node name="Control2" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+minimum_size = Vector2(0, 3)
+offset_top = 74.0
+offset_right = 350.0
+offset_bottom = 77.0
+
+[node name="Icon" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+minimum_size = Vector2(130, 130)
+offset_left = 110.0
+offset_top = 81.0
+offset_right = 240.0
+offset_bottom = 211.0
+size_flags_horizontal = 4
+texture = ExtResource( "3_vct74" )
+ignore_texture_size = true
+
+[node name="Control4" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+minimum_size = Vector2(0, 2)
+offset_top = 215.0
+offset_right = 350.0
+offset_bottom = 217.0
+
+[node name="Description" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+minimum_size = Vector2(310, 0)
+offset_left = 20.0
+offset_top = 221.0
+offset_right = 330.0
+offset_bottom = 291.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_font_sizes/font_size = 18
+text = "This is a quick firing turret with great tracking and average damage"
+autowrap_mode = 3
+clip_text = true
+
+[node name="Control3" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+minimum_size = Vector2(0, 5)
+offset_top = 295.0
+offset_right = 350.0
+offset_bottom = 300.0
 
 [connection signal="pressed" from="UI/HUD/BottomBar/HBoxContainer/PausePlay" to="UI/HUD/BottomBar" method="OnPausePlayPressed"]
 [connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn0" to="UI/HUD/BottomBar" method="OnBuildBtn0Down"]
@@ -316,3 +612,6 @@ size_flags_horizontal = 4
 [connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn2" to="UI/HUD/BottomBar" method="OnBuildBtn2Up"]
 [connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn3" to="UI/HUD/BottomBar" method="OnBuildBtn3Down"]
 [connection signal="button_up" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn3" to="UI/HUD/BottomBar" method="OnBuildBtn3Up"]
+[connection signal="button_down" from="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1" to="UI/TowerSelectionMenu" method="OnTowerSelection1ButtonDown"]
+[connection signal="button_down" from="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2" to="UI/TowerSelectionMenu" method="OnTowerSelection2ButtonDown"]
+[connection signal="button_down" from="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3" to="UI/TowerSelectionMenu" method="OnTowerSelection3ButtonDown"]

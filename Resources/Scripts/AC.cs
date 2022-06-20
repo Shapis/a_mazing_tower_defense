@@ -10,6 +10,9 @@ public partial class AC : Node
     [Export]
     private List<PackedScene>? _towers;
 
+    [Export]
+    private List<PackedScene>? _enemies;
+
     public sealed override void _Ready()
     {
         AC? temp = GD.Load<PackedScene>("res://AssortedCatalog.tscn").Instantiate() as AC;
@@ -22,6 +25,7 @@ public partial class AC : Node
 
         _packedScenes = temp._packedScenes;
         _towers = temp._towers;
+        _enemies = temp._enemies;
 
         temp.Dispose();
     }
@@ -48,6 +52,16 @@ public partial class AC : Node
         return _towers![(int)towerName].Instantiate<BaseTower>();
     }
 
+    public enum EnemyType
+    {
+        BlueTank,
+    }
+
+    public BaseEnemy GetEnemy(AC.EnemyType enemyName)
+    {
+        return _enemies![(int)enemyName].Instantiate<BaseEnemy>();
+    }
+
     public enum MapLayerName
     {
         Ground,
@@ -55,10 +69,5 @@ public partial class AC : Node
         Props,
         TowerPreviews,
         Towers,
-    }
-
-    public int GetMapLayer(AC.MapLayerName mapLayerName)
-    {
-        return (int)mapLayerName;
     }
 }

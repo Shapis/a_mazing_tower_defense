@@ -4,3 +4,5 @@ res://Scenes/MainScenes/GameScene.tscn
 res://Scenes/Towers/GunTurret.tscn
 res://Scenes/Towers/DualGunTurret.tscn
 res://SceneHandler.tscn
+res://AssortedCatalog.tscn
+res://Scenes/Enemies/BlueTank.tscn
