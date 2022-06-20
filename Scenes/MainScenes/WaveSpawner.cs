@@ -16,10 +16,12 @@ public partial class WaveSpawner : Node
     public int CurrentWave { get; private set; } = 0;
     public int TotalEnemiesInWave { get; private set; } = 0;
     public int TotalEnemiesLeft { get; private set; } = 0;
+    public bool IsWaveInProgress { get; private set; } = false;
     private int mobsThatGotThrough = 0;
 
     public void StartNextWave(Map map, AC assortedCatalog)
     {
+        IsWaveInProgress = true;
         _map = map;
         _assortedCatalog = assortedCatalog;
         CurrentWave++;
@@ -91,6 +93,7 @@ public partial class WaveSpawner : Node
 
         if (TotalEnemiesLeft == 0)
         {
+            IsWaveInProgress = false;
             OnWaveEndedEvent?.Invoke(this, mobsThatGotThrough);
         }
     }

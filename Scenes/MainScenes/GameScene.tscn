@@ -50,6 +50,7 @@ grow_vertical = 0
 texture = ExtResource( "9_q2220" )
 ignore_texture_size = true
 script = ExtResource( "5_eyarc" )
+_pausePlayBtnPath = NodePath("HBoxContainer/PausePlay")
 _TowerOverflowTextPath = NodePath("TowerOverflow")
 _buildButtonsPath = [NodePath("HBoxContainer/BuildBtn0"), NodePath("HBoxContainer/BuildBtn1"), NodePath("HBoxContainer/BuildBtn2"), NodePath("HBoxContainer/BuildBtn3")]
 metadata/_edit_use_custom_anchors = true

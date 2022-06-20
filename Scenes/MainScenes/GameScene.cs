@@ -56,7 +56,7 @@ public partial class GameScene : Node2D
 
     private void OnWaveEnded(object sender, int mobsThatGotThrough)
     {
-        GD.Print($"Wave ended. {mobsThatGotThrough} mobs got through");
+        _bottomBar!.ResetPausePlayBtn();
     }
 
     private bool OnBuildBtnUp(object sender, AC.TowerType towerType)
@@ -106,13 +106,13 @@ public partial class GameScene : Node2D
         }
     }
 
-    private bool OnPausePlayPressed()
+    private bool OnPausePlayPressed(object sender)
     {
         if (_isBuildModeActive)
         {
-            // CancelBuildMode();
+            _towerPreview!.EndBuildModePreview();
         }
-        if (_waveSpawner!.CurrentWave == 0)
+        if (!_waveSpawner!.IsWaveInProgress)
         {
             var ac = GetNode<AC>("/root/AC");
             _waveSpawner.StartNextWave(_map!, ac);

@@ -5,11 +5,15 @@ using System.Linq;
 
 public partial class BottomBar : TextureRect
 {
-    public Func<bool>? OnPausePlayPressedEvent;
+    public Func<object, bool>? OnPausePlayPressedEvent;
 
     [Signal]
     public event Action<object, AC.TowerType>? OnBuildBtnDown;
     public Func<object, AC.TowerType, bool>? OnBuildBtnUp;
+
+    [Export]
+    private NodePath? _pausePlayBtnPath;
+    private TextureButton? _pausePlayBtn;
 
     [Export]
     private NodePath? _TowerOverflowTextPath;
@@ -78,6 +82,7 @@ public partial class BottomBar : TextureRect
     public sealed override void _Ready()
     {
         _TowerOverflowText = GetNode<Label>(_TowerOverflowTextPath);
+        _pausePlayBtn = GetNode<TextureButton>(_pausePlayBtnPath);
 
         foreach (NodePath path in _buildButtonsPath!)
         {
@@ -90,11 +95,17 @@ public partial class BottomBar : TextureRect
 
     private void OnPausePlayPressed()
     {
-        if (OnPausePlayPressedEvent?.Invoke() == true)
+        if (OnPausePlayPressedEvent?.Invoke(this) == true)
         {
             return;
         }
+
         GetTree().Paused = !GetTree().Paused;
+    }
+
+    public void ResetPausePlayBtn()
+    {
+        _pausePlayBtn!.ButtonPressed = false;
     }
 
     #region  build button events
