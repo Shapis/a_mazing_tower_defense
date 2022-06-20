@@ -34,6 +34,7 @@ _data = {
 z_index = 1
 script = ExtResource( "1_gmvxk" )
 Range = 300.0
+Damage = 10.0
 _rangeCollisionShape2DPath = NodePath("Range/CollisionShape2D")
 _animationPlayerPath = NodePath("AnimationPlayer")
 
