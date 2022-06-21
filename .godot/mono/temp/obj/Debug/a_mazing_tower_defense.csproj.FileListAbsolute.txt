@@ -1,9 +1,0 @@
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/bin/Debug/a_mazing_tower_defense.dll
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/bin/Debug/a_mazing_tower_defense.pdb
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/obj/Debug/a_mazing_tower_defense.csproj.AssemblyReference.cache
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/obj/Debug/a_mazing_tower_defense.GeneratedMSBuildEditorConfig.editorconfig
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/obj/Debug/a_mazing_tower_defense.AssemblyInfoInputs.cache
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/obj/Debug/a_mazing_tower_defense.AssemblyInfo.cs
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/obj/Debug/a_mazing_tower_defense.csproj.CoreCompileInputs.cache
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/obj/Debug/a_mazing_tower_defense.dll
-/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/obj/Debug/a_mazing_tower_defense.pdb
