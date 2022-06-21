@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7L67Wruf7hRxeebkVgm2UD+fyvoV37eBZViW/W39oTL8cLxD87eBZAMUv23Wrv1jj26SgXlKSqd8dpYRN0dLug==",
+  "dgSpecHash": "kddEkjlMqT6HTRgb7/1d8j0+WXaTyPSIeSAEorjdVQWnruSTk8g+w/27ZVkENwefXNSHIj5QMZjtzsjdXyeDGA==",
   "success": true,
-  "projectFilePath": "/home/hpsilva/Documents/coding_projects/a_mazing_tower_defense/a_mazing_tower_defense.csproj",
+  "projectFilePath": "/home/hpsilva/Documents/a_mazing_tower_defense/a_mazing_tower_defense.csproj",
   "expectedPackageFiles": [
     "/home/hpsilva/.nuget/packages/godot.sourcegenerators/4.0.0-dev3/godot.sourcegenerators.4.0.0-dev3.nupkg.sha512",
     "/home/hpsilva/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",

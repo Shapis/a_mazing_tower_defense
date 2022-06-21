@@ -441,11 +441,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/hpsilva/Documents/coding_projects/a_mazing_tower_defense/a_mazing_tower_defense.csproj",
+      "projectUniqueName": "/home/hpsilva/Documents/a_mazing_tower_defense/a_mazing_tower_defense.csproj",
       "projectName": "a_mazing_tower_defense",
-      "projectPath": "/home/hpsilva/Documents/coding_projects/a_mazing_tower_defense/a_mazing_tower_defense.csproj",
+      "projectPath": "/home/hpsilva/Documents/a_mazing_tower_defense/a_mazing_tower_defense.csproj",
       "packagesPath": "/home/hpsilva/.nuget/packages/",
-      "outputPath": "/home/hpsilva/Documents/coding_projects/a_mazing_tower_defense/.godot/mono/temp/obj/",
+      "outputPath": "/home/hpsilva/Documents/a_mazing_tower_defense/.godot/mono/temp/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/home/hpsilva/.local/share/godot/mono/GodotNuGetFallbackFolder"

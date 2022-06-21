@@ -12,6 +12,7 @@ dest_files=["res://.godot/imported/kfn_40.ttf-81bcf3aa7562c15b94028d013174abd1.f
 
 [params]
 
+face_index=0
 antialiased=true
 generate_mipmaps=false
 multichannel_signed_distance_field=false

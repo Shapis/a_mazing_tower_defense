@@ -4,6 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://wlee3slh1dov" path="res://Scenes/UIScenes/MainMenu.tscn" id="2_7fyo1"]
 
 [node name="SceneHandler" type="Node"]
-script = ExtResource( "1_vytrq" )
+script = ExtResource("1_vytrq")
 
-[node name="MainMenu" parent="." instance=ExtResource( "2_7fyo1" )]
+[node name="MainMenu" parent="." instance=ExtResource("2_7fyo1")]
