@@ -30,6 +30,17 @@ public abstract partial class BaseTower : Node2D
     private BaseEnemy? _currentTarget;
     private bool _isReloaded = true;
 
+    [Export]
+    public TowerRarity Rarity { get; private set; } = TowerRarity.Common;
+
+    public enum TowerRarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Legendary
+    }
+
     public void UpgradeTower()
     {
         var ac = GetNode<AC>("/root/AC");

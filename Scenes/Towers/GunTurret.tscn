@@ -27,22 +27,22 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ljkq3"]
 _data = {
-"Fire": SubResource( "Animation_8khkh" )
+"Fire": SubResource("Animation_8khkh")
 }
 
 [node name="GunTurret" type="Node2D"]
 z_index = 1
-script = ExtResource( "1_gmvxk" )
+script = ExtResource("1_gmvxk")
 Range = 300.0
 Damage = 10.0
 _rangeCollisionShape2DPath = NodePath("Range/CollisionShape2D")
 _animationPlayerPath = NodePath("AnimationPlayer")
 
 [node name="Base" type="Sprite2D" parent="."]
-texture = ExtResource( "2_tqs6d" )
+texture = ExtResource("2_tqs6d")
 
 [node name="Turret" type="Sprite2D" parent="."]
-texture = ExtResource( "2_616bf" )
+texture = ExtResource("2_616bf")
 offset = Vector2(12, 0)
 
 [node name="Muzzle" type="Position2D" parent="Turret"]
@@ -52,16 +52,16 @@ position = Vector2(43, 0)
 visible = false
 position = Vector2(10, 0)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource( "4_wedk6" )
+texture = ExtResource("4_wedk6")
 
 [node name="Range" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
-shape = SubResource( "CircleShape2D_5bhwa" )
+shape = SubResource("CircleShape2D_5bhwa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource( "AnimationLibrary_ljkq3" )
+"": SubResource("AnimationLibrary_ljkq3")
 }
 
 [connection signal="body_entered" from="Range" to="." method="OnRangeBodyEntered"]

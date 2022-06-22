@@ -22,8 +22,17 @@ public abstract partial class BaseEnemy : PathFollow2D
     private CharacterBody2D? _characterBody2D;
     private TextureProgressBar? _healthBar;
     private Vector2 _healthBarOffset = new Vector2(-30, 28);
-    public int MaxPossibleRarity { get; private set; } = 4;
-    public abstract int Rarity { get; protected set; }
+
+    [Export]
+    public EnemyRarity Rarity { get; private set; } = EnemyRarity.Common;
+
+    public enum EnemyRarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Legendary
+    }
 
     public sealed override void _Ready()
     {

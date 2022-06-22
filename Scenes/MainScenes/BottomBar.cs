@@ -125,7 +125,6 @@ public partial class BottomBar : TextureRect
         }
         else
         {
-            GD.Print("here");
             var ac = GetNode<AC>("/root/AC");
             _buildButtons[i].GetNode<TextureRect>("Icon").Texture = ac.GetTower(_towerBank[i])
                 .GetNode<Sprite2D>("Turret")

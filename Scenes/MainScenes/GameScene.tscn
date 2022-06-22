@@ -23,16 +23,17 @@ resource_local_to_scene = false
 resource_name = ""
 
 [node name="GameScene" type="Node2D"]
-script = ExtResource( "1_ovsd1" )
+script = ExtResource("1_ovsd1")
 _bottomBarPath = NodePath("UI/HUD/BottomBar")
 _mapPath = NodePath("Map")
 _towerPreviewPath = NodePath("UI/HUD/TowerPreview")
+_towerSelectionMenuPath = NodePath("UI/TowerSelectionMenu")
 metadata/_edit_horizontal_guides_ = [-61.0]
 
-[node name="Map" parent="." instance=ExtResource( "1_sfkm7" )]
+[node name="Map" parent="." instance=ExtResource("1_sfkm7")]
 
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource( "3_53tf0" )
+script = ExtResource("3_53tf0")
 
 [node name="HUD" type="Control" parent="UI"]
 anchor_right = 1.0
@@ -47,9 +48,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -128.0
 grow_vertical = 0
-texture = ExtResource( "9_q2220" )
+texture = ExtResource("9_q2220")
 ignore_texture_size = true
-script = ExtResource( "5_eyarc" )
+script = ExtResource("5_eyarc")
 _pausePlayBtnPath = NodePath("HBoxContainer/PausePlay")
 _TowerOverflowTextPath = NodePath("TowerOverflow")
 _buildButtonsPath = [NodePath("HBoxContainer/BuildBtn0"), NodePath("HBoxContainer/BuildBtn1"), NodePath("HBoxContainer/BuildBtn2"), NodePath("HBoxContainer/BuildBtn3")]
@@ -77,8 +78,8 @@ offset_bottom = 114.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 toggle_mode = true
-texture_normal = ExtResource( "5_2b2yc" )
-texture_pressed = ExtResource( "6_j0k3s" )
+texture_normal = ExtResource("5_2b2yc")
+texture_pressed = ExtResource("6_j0k3s")
 stretch_mode = 0
 
 [node name="Control" type="Control" parent="UI/HUD/BottomBar/HBoxContainer"]
@@ -95,7 +96,7 @@ offset_bottom = 109.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 action_mode = 0
-texture_normal = ExtResource( "2_bjkfu" )
+texture_normal = ExtResource("2_bjkfu")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn0"]
@@ -112,7 +113,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.5708
 pivot_offset = Vector2(40, 40)
-texture = ExtResource( "3_vct74" )
+texture = ExtResource("3_vct74")
 metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
@@ -125,7 +126,7 @@ offset_bottom = 109.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 action_mode = 0
-texture_normal = ExtResource( "2_bjkfu" )
+texture_normal = ExtResource("2_bjkfu")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn1"]
@@ -142,7 +143,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.5708
 pivot_offset = Vector2(40, 40)
-texture = ExtResource( "4_dw0pu" )
+texture = ExtResource("4_dw0pu")
 metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
@@ -155,7 +156,7 @@ offset_bottom = 109.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 action_mode = 0
-texture_normal = ExtResource( "2_bjkfu" )
+texture_normal = ExtResource("2_bjkfu")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn2"]
@@ -172,7 +173,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.5708
 pivot_offset = Vector2(40, 40)
-texture = ExtResource( "4_dw0pu" )
+texture = ExtResource("4_dw0pu")
 metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
@@ -185,7 +186,7 @@ offset_bottom = 109.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 action_mode = 0
-texture_normal = ExtResource( "2_bjkfu" )
+texture_normal = ExtResource("2_bjkfu")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn3"]
@@ -202,7 +203,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -1.5708
 pivot_offset = Vector2(40, 40)
-texture = ExtResource( "4_dw0pu" )
+texture = ExtResource("4_dw0pu")
 metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
@@ -211,15 +212,15 @@ offset_left = 530.0
 offset_top = 48.0
 offset_right = 569.0
 offset_bottom = 80.0
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 25
 text = "+4"
 
 [node name="TowerPreview" type="Control" parent="UI/HUD"]
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource( "11_pyhkk" )
-_rangeOverlayTexture = ExtResource( "4_72ncs" )
+script = ExtResource("11_pyhkk")
+_rangeOverlayTexture = ExtResource("4_72ncs")
 
 [node name="InfoBar" type="ColorRect" parent="UI/HUD"]
 visible = false
@@ -236,7 +237,7 @@ minimum_size = Vector2(120, 60)
 offset_right = 120.0
 offset_bottom = 60.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.705882)
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 50
 text = "$
 "
@@ -249,7 +250,7 @@ offset_left = 124.0
 offset_right = 224.0
 offset_bottom = 60.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.705882)
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 30
 text = "9999
 "
@@ -261,7 +262,7 @@ minimum_size = Vector2(60, 60)
 offset_left = 228.0
 offset_right = 288.0
 offset_bottom = 60.0
-texture = ExtResource( "12_ddsuc" )
+texture = ExtResource("12_ddsuc")
 ignore_texture_size = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="UI/HUD/InfoBar/HBoxContainer"]
@@ -274,8 +275,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 100.0
 nine_patch_stretch = true
-texture_under = ExtResource( "12_8skfk" )
-texture_progress = ExtResource( "12_8skfk" )
+texture_under = ExtResource("12_8skfk")
+texture_progress = ExtResource("12_8skfk")
 tint_under = Color(0.215686, 0.215686, 0.215686, 1)
 tint_progress = Color(0.305882, 1, 0.0862745, 1)
 
@@ -285,13 +286,14 @@ offset_right = 576.0
 offset_bottom = 60.0
 
 [node name="TowerSelectionMenu" type="TextureRect" parent="UI"]
+visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 8
-texture = ExtResource( "9_q2220" )
+texture = ExtResource("9_q2220")
 ignore_texture_size = true
-script = ExtResource( "16_c70kl" )
+script = ExtResource("16_c70kl")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu"]
 anchor_left = 0.5
@@ -312,7 +314,7 @@ offset_left = 145.0
 offset_right = 430.0
 offset_bottom = 48.0
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 40
 text = "Pick a tower"
 
@@ -324,7 +326,7 @@ offset_right = 463.0
 offset_bottom = 358.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource( "16_cbdce" )
+texture_normal = ExtResource("16_cbdce")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -349,7 +351,7 @@ offset_top = 9.0
 offset_right = 335.0
 offset_bottom = 14.0
 size_flags_horizontal = 4
-texture = SubResource( "Texture2D_txj2b" )
+texture = SubResource("Texture2D_txj2b")
 ignore_texture_size = true
 
 [node name="Type" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
@@ -358,7 +360,7 @@ offset_top = 18.0
 offset_right = 210.0
 offset_bottom = 44.0
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 20
 text = "Tower"
 
@@ -368,7 +370,7 @@ offset_top = 48.0
 offset_right = 239.0
 offset_bottom = 74.0
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 20
 text = "Gun Turret"
 
@@ -385,7 +387,7 @@ offset_top = 83.0
 offset_right = 240.0
 offset_bottom = 213.0
 size_flags_horizontal = 4
-texture = ExtResource( "3_vct74" )
+texture = ExtResource("3_vct74")
 ignore_texture_size = true
 
 [node name="Tower" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer/Base"]
@@ -399,7 +401,7 @@ offset_top = -65.0
 offset_right = 65.0
 offset_bottom = 65.0
 size_flags_horizontal = 4
-texture = ExtResource( "3_vct74" )
+texture = ExtResource("3_vct74")
 ignore_texture_size = true
 
 [node name="Control4" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
@@ -416,7 +418,7 @@ offset_right = 330.0
 offset_bottom = 292.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 18
 text = "This is a quick firing turret with great tracking and average damage"
 autowrap_mode = 3
@@ -436,7 +438,7 @@ offset_right = 463.0
 offset_bottom = 668.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource( "16_cbdce" )
+texture_normal = ExtResource("16_cbdce")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -450,69 +452,93 @@ grow_vertical = 2
 metadata/_edit_layout_mode = 1
 
 [node name="Control" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
-minimum_size = Vector2(0, 10)
+minimum_size = Vector2(0, 5)
 offset_right = 350.0
-offset_bottom = 10.0
+offset_bottom = 5.0
+
+[node name="RarityBar" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+minimum_size = Vector2(320, 5)
+offset_left = 15.0
+offset_top = 9.0
+offset_right = 335.0
+offset_bottom = 14.0
+size_flags_horizontal = 4
+texture = SubResource("Texture2D_txj2b")
+ignore_texture_size = true
 
 [node name="Type" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
 offset_left = 139.0
-offset_top = 14.0
+offset_top = 18.0
 offset_right = 210.0
-offset_bottom = 40.0
+offset_bottom = 44.0
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 20
 text = "Tower"
 
 [node name="TowerType" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
 offset_left = 111.0
-offset_top = 44.0
+offset_top = 48.0
 offset_right = 239.0
-offset_bottom = 70.0
+offset_bottom = 74.0
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 20
 text = "Gun Turret"
 
 [node name="Control2" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
-minimum_size = Vector2(0, 3)
-offset_top = 74.0
+minimum_size = Vector2(0, 1)
+offset_top = 78.0
 offset_right = 350.0
-offset_bottom = 77.0
+offset_bottom = 79.0
 
-[node name="Icon" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+[node name="Base" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
 minimum_size = Vector2(130, 130)
 offset_left = 110.0
-offset_top = 81.0
+offset_top = 83.0
 offset_right = 240.0
-offset_bottom = 211.0
+offset_bottom = 213.0
 size_flags_horizontal = 4
-texture = ExtResource( "3_vct74" )
+texture = ExtResource("3_vct74")
+ignore_texture_size = true
+
+[node name="Tower" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer/Base"]
+minimum_size = Vector2(130, 130)
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 65.0
+size_flags_horizontal = 4
+texture = ExtResource("3_vct74")
 ignore_texture_size = true
 
 [node name="Control4" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
-minimum_size = Vector2(0, 2)
-offset_top = 215.0
+minimum_size = Vector2(0, 1)
+offset_top = 217.0
 offset_right = 350.0
-offset_bottom = 217.0
+offset_bottom = 218.0
 
 [node name="Description" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
 minimum_size = Vector2(310, 0)
 offset_left = 20.0
-offset_top = 221.0
+offset_top = 222.0
 offset_right = 330.0
-offset_bottom = 291.0
+offset_bottom = 292.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 18
 text = "This is a quick firing turret with great tracking and average damage"
 autowrap_mode = 3
 clip_text = true
 
 [node name="Control3" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
-minimum_size = Vector2(0, 5)
-offset_top = 295.0
+minimum_size = Vector2(0, 4)
+offset_top = 296.0
 offset_right = 350.0
 offset_bottom = 300.0
 
@@ -524,7 +550,7 @@ offset_right = 463.0
 offset_bottom = 978.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource( "16_cbdce" )
+texture_normal = ExtResource("16_cbdce")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -538,69 +564,93 @@ grow_vertical = 2
 metadata/_edit_layout_mode = 1
 
 [node name="Control" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
-minimum_size = Vector2(0, 10)
+minimum_size = Vector2(0, 5)
 offset_right = 350.0
-offset_bottom = 10.0
+offset_bottom = 5.0
+
+[node name="RarityBar" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+minimum_size = Vector2(320, 5)
+offset_left = 15.0
+offset_top = 9.0
+offset_right = 335.0
+offset_bottom = 14.0
+size_flags_horizontal = 4
+texture = SubResource("Texture2D_txj2b")
+ignore_texture_size = true
 
 [node name="Type" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
 offset_left = 139.0
-offset_top = 14.0
+offset_top = 18.0
 offset_right = 210.0
-offset_bottom = 40.0
+offset_bottom = 44.0
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 20
 text = "Tower"
 
 [node name="TowerType" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
 offset_left = 111.0
-offset_top = 44.0
+offset_top = 48.0
 offset_right = 239.0
-offset_bottom = 70.0
+offset_bottom = 74.0
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 20
 text = "Gun Turret"
 
 [node name="Control2" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
-minimum_size = Vector2(0, 3)
-offset_top = 74.0
+minimum_size = Vector2(0, 1)
+offset_top = 78.0
 offset_right = 350.0
-offset_bottom = 77.0
+offset_bottom = 79.0
 
-[node name="Icon" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
+[node name="Base" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
 minimum_size = Vector2(130, 130)
 offset_left = 110.0
-offset_top = 81.0
+offset_top = 83.0
 offset_right = 240.0
-offset_bottom = 211.0
+offset_bottom = 213.0
 size_flags_horizontal = 4
-texture = ExtResource( "3_vct74" )
+texture = ExtResource("3_vct74")
+ignore_texture_size = true
+
+[node name="Tower" type="TextureRect" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer/Base"]
+minimum_size = Vector2(130, 130)
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 65.0
+size_flags_horizontal = 4
+texture = ExtResource("3_vct74")
 ignore_texture_size = true
 
 [node name="Control4" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
-minimum_size = Vector2(0, 2)
-offset_top = 215.0
+minimum_size = Vector2(0, 1)
+offset_top = 217.0
 offset_right = 350.0
-offset_bottom = 217.0
+offset_bottom = 218.0
 
 [node name="Description" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
 minimum_size = Vector2(310, 0)
 offset_left = 20.0
-offset_top = 221.0
+offset_top = 222.0
 offset_right = 330.0
-offset_bottom = 291.0
+offset_bottom = 292.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource( "11_6gkwr" )
+theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 18
 text = "This is a quick firing turret with great tracking and average damage"
 autowrap_mode = 3
 clip_text = true
 
 [node name="Control3" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection3/VBoxContainer"]
-minimum_size = Vector2(0, 5)
-offset_top = 295.0
+minimum_size = Vector2(0, 4)
+offset_top = 296.0
 offset_right = 350.0
 offset_bottom = 300.0
 

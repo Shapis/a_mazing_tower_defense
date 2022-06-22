@@ -43,22 +43,23 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_72aqw"]
 _data = {
-"Fire1": SubResource( "Animation_s5dt1" ),
-"Fire2": SubResource( "Animation_1dhul" )
+"Fire1": SubResource("Animation_s5dt1"),
+"Fire2": SubResource("Animation_1dhul")
 }
 
 [node name="DualGunTurret" type="Node2D"]
 z_index = 1
-script = ExtResource( "1_miky0" )
+script = ExtResource("1_miky0")
 RateOfFire = 2.0
+Damage = 10.0
 _rangeCollisionShape2DPath = NodePath("Range/CollisionShape2D")
 _animationPlayerPath = NodePath("AnimationPlayer")
 
 [node name="Base" type="Sprite2D" parent="."]
-texture = ExtResource( "2_p0tug" )
+texture = ExtResource("2_p0tug")
 
 [node name="Turret" type="Sprite2D" parent="."]
-texture = ExtResource( "3_ds8mu" )
+texture = ExtResource("3_ds8mu")
 offset = Vector2(10, 0)
 
 [node name="Muzzle1" type="Position2D" parent="Turret"]
@@ -68,7 +69,7 @@ position = Vector2(41, 6)
 visible = false
 position = Vector2(10, 0)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource( "4_xj400" )
+texture = ExtResource("4_xj400")
 
 [node name="Muzzle2" type="Position2D" parent="Turret"]
 position = Vector2(41, -6)
@@ -77,16 +78,16 @@ position = Vector2(41, -6)
 visible = false
 position = Vector2(10, 0)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource( "4_xj400" )
+texture = ExtResource("4_xj400")
 
 [node name="Range" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
-shape = SubResource( "CircleShape2D_vo0w5" )
+shape = SubResource("CircleShape2D_vo0w5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource( "AnimationLibrary_72aqw" )
+"": SubResource("AnimationLibrary_72aqw")
 }
 
 [connection signal="body_entered" from="Range" to="." method="OnRangeBodyEntered"]

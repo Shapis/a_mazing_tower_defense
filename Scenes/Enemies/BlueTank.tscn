@@ -10,20 +10,20 @@ size = Vector2(43, 42)
 
 [node name="BlueTank" type="PathFollow2D"]
 loop = false
-script = ExtResource( "1_hymie" )
+script = ExtResource("1_hymie")
 Health = 20.0
 _characterBody2DPath = NodePath("CharacterBody2D")
-_projectilePath = ExtResource( "2_tguaj" )
+_projectilePath = ExtResource("2_tguaj")
 _projectileSpawnPointPath = NodePath("Impact")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(-0.5, 0)
-shape = SubResource( "RectangleShape2D_y0sd1" )
+shape = SubResource("RectangleShape2D_y0sd1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource( "1_5v3ve" )
+texture = ExtResource("1_5v3ve")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 anchor_left = 0.5
@@ -34,8 +34,8 @@ offset_right = 30.0
 offset_bottom = 34.0
 value = 50.0
 nine_patch_stretch = true
-texture_under = ExtResource( "3_3c2xi" )
-texture_progress = ExtResource( "3_3c2xi" )
+texture_under = ExtResource("3_3c2xi")
+texture_progress = ExtResource("3_3c2xi")
 tint_under = Color(0.207843, 0.207843, 0.207843, 1)
 tint_progress = Color(0, 0.745098, 0, 1)
 

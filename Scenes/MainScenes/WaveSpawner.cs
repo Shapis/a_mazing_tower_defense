@@ -11,18 +11,13 @@ public partial class WaveSpawner : Node
 
     private Map? _map;
     private AC? _assortedCatalog;
-    Random rng = new Random();
+    private Random rng = new Random();
 
-    public int CurrentWave { get; private set; } = 0;
+    public int CurrentWave { get; private set; } = 4;
     public int TotalEnemiesInWave { get; private set; } = 0;
     public int TotalEnemiesLeft { get; private set; } = 0;
     public bool IsWaveInProgress { get; private set; } = false;
     private int mobsThatGotThrough = 0;
-
-    public sealed override void _PhysicsProcess(float delta)
-    {
-        GD.Print(delta);
-    }
 
     public void StartNextWave(Map map, AC assortedCatalog)
     {
@@ -38,18 +33,23 @@ public partial class WaveSpawner : Node
     private List<BaseEnemy> GenerateWave()
     {
         List<BaseEnemy> enemies = new List<BaseEnemy>();
-        var targetTotalHealthOfEnemies = (int)(20 + CurrentWave * 40f);
+        var targetTotalHealthOfEnemies = (int)(20 * Mathf.Pow(CurrentWave, 1.8f));
         int totalHealthOfEnemies = 0;
 
         while (totalHealthOfEnemies < targetTotalHealthOfEnemies)
         {
             var randomNumber = rng.Next(0, Enum.GetNames(typeof(AC.EnemyType)).Length - 1);
             var enemy = _assortedCatalog!.GetEnemy((AC.EnemyType)randomNumber);
-            randomNumber = rng.Next(0, enemy.MaxPossibleRarity);
-            if (enemy.Rarity <= randomNumber)
+            enemy.Health = enemy.Health * CurrentWave * 0.3f;
+            randomNumber = rng.Next(0, Enum.GetNames(typeof(BaseEnemy.EnemyRarity)).Length - 1);
+            if ((int)enemy.Rarity <= randomNumber)
             {
                 enemies.Add(enemy);
                 totalHealthOfEnemies += (int)enemy.Health;
+            }
+            else
+            {
+                enemy.QueueFree();
             }
         }
 
@@ -71,8 +71,12 @@ public partial class WaveSpawner : Node
             item.OnEnemyDiedEvent += OnEnemyDied;
             item.OnTargetReachedEvent += OnTargetReached;
             _map!.GetChildren().OfType<Path2D>().First().AddChild(item, true);
-
-            await ToSignal(_map.GetTree().CreateTimer(1f, false), "timeout");
+            GD.Print(waveEnemyList.Count);
+            GD.Print(Mathf.Pow(15f / waveEnemyList.Count, 0.4f) * waveEnemyList.Count);
+            await ToSignal(
+                _map.GetTree().CreateTimer(Mathf.Pow(15f / waveEnemyList.Count, 0.4f), false),
+                "timeout"
+            );
         }
     }
 

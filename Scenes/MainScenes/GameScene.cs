@@ -14,6 +14,10 @@ public partial class GameScene : Node2D
     private NodePath? _towerPreviewPath;
     private TowerPreview? _towerPreview;
 
+    [Export]
+    private NodePath? _towerSelectionMenuPath;
+    private TowerSelectionMenu? _towerSelectionMenu;
+
     private bool _isBuildModeActive = false;
 
     private WaveSpawner? _waveSpawner;
@@ -23,6 +27,7 @@ public partial class GameScene : Node2D
         _bottomBar = GetNode<BottomBar>(_bottomBarPath);
         _map = GetNode<Map>(_mapPath);
         _towerPreview = GetNode<TowerPreview>(_towerPreviewPath);
+        _towerSelectionMenu = GetNode<TowerSelectionMenu>(_towerSelectionMenuPath);
 
         if (_bottomBar is null)
         {
@@ -48,11 +53,14 @@ public partial class GameScene : Node2D
         _bottomBar.OnPausePlayPressedEvent += OnPausePlayPressed;
         _bottomBar.OnBuildBtnDown += OnBuildBtnDown;
         _bottomBar.OnBuildBtnUp += OnBuildBtnUp;
+
+        _towerSelectionMenu!.InitialTowerSelection(_bottomBar);
     }
 
     private void OnWaveEnded(object sender, int mobsThatGotThrough)
     {
         _bottomBar!.ResetPausePlayBtn();
+        _towerSelectionMenu!.GenerateTowerSelection();
     }
 
     private bool OnBuildBtnUp(object sender, AC.TowerType towerType)
