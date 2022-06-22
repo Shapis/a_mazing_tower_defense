@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dv7ocvly5umfb"]
-
-[ext_resource type="Texture2D" uid="uid://ud0aw61s7r47" path="res://Assets/Entities/Towers/towerDefense_tile180.png" id="1_5t7ua"]
-
-[node name="Base" type="Sprite2D"]
-texture = ExtResource( "1_5t7ua" )

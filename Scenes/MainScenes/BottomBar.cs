@@ -7,8 +7,7 @@ public partial class BottomBar : TextureRect
 {
     public Func<object, bool>? OnPausePlayPressedEvent;
 
-    [Signal]
-    public event Action<object, AC.TowerType>? OnBuildBtnDown;
+    public Func<object, AC.TowerType, bool>? OnBuildBtnDown;
     public Func<object, AC.TowerType, bool>? OnBuildBtnUp;
 
     [Export]
@@ -61,7 +60,7 @@ public partial class BottomBar : TextureRect
                 _buildButtons[i].Disabled = true;
             }
         }
-        var overflow = _towerBank.Count - _buildButtons.Count;
+        int overflow = _towerBank.Count - _buildButtons.Count;
         if (overflow <= 0)
         {
             _TowerOverflowText!.Text = $"+{overflow}";
@@ -111,8 +110,10 @@ public partial class BottomBar : TextureRect
     #region  build button events
     private void BtnDown(int i)
     {
-        OnBuildBtnDown?.Invoke(this, _towerBank[i]);
-        _buildButtons[i].GetNode<TextureRect>("Icon").Texture = null;
+        if ((bool)OnBuildBtnDown?.Invoke(this, _towerBank[i])!)
+        {
+            _buildButtons[i].GetNode<TextureRect>("Icon").Texture = null;
+        }
     }
 
     private void BtnUp(int i)

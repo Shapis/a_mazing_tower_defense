@@ -1,8 +1,4 @@
 using Godot;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 public partial class GameScene : Node2D
 {
@@ -61,14 +57,29 @@ public partial class GameScene : Node2D
 
     private bool OnBuildBtnUp(object sender, AC.TowerType towerType)
     {
-        _towerPreview!.EndBuildModePreview();
+        if (!_waveSpawner!.IsWaveInProgress)
+        {
+            _towerPreview!.EndBuildModePreview();
 
-        return _map!.VerifyAndBuildTower(towerType);
+            return _map!.VerifyAndBuildTower(towerType);
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    private void OnBuildBtnDown(object sender, AC.TowerType towerName)
+    private bool OnBuildBtnDown(object sender, AC.TowerType towerName)
     {
-        _towerPreview!.InitiateBuildModePreview(towerName, _map);
+        if (!_waveSpawner!.IsWaveInProgress)
+        {
+            _towerPreview!.InitiateBuildModePreview(towerName, _map);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private BaseTower? _currentTower;
@@ -84,7 +95,7 @@ public partial class GameScene : Node2D
         {
             _currentTower = _map!.GetTowerAt(GetGlobalMousePosition());
 
-            if (_currentTower is not null)
+            if (_currentTower is not null && !_waveSpawner!.IsWaveInProgress)
             {
                 _towerPreview!.InitiateBuildModePreview(_currentTower.TowerType, _map);
                 _map!.RemoveTowerAt(GetGlobalMousePosition());
@@ -93,7 +104,7 @@ public partial class GameScene : Node2D
 
         if (inputEvent.IsActionReleased("ui_accept"))
         {
-            if (_currentTower is not null)
+            if (_currentTower is not null && !_waveSpawner!.IsWaveInProgress)
             {
                 _towerPreview!.EndBuildModePreview();
                 if (!_map!.VerifyAndBuildTower(_currentTower.TowerType))

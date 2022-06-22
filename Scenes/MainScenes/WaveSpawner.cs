@@ -19,6 +19,11 @@ public partial class WaveSpawner : Node
     public bool IsWaveInProgress { get; private set; } = false;
     private int mobsThatGotThrough = 0;
 
+    public sealed override void _PhysicsProcess(float delta)
+    {
+        GD.Print(delta);
+    }
+
     public void StartNextWave(Map map, AC assortedCatalog)
     {
         IsWaveInProgress = true;
@@ -67,7 +72,7 @@ public partial class WaveSpawner : Node
             item.OnTargetReachedEvent += OnTargetReached;
             _map!.GetChildren().OfType<Path2D>().First().AddChild(item, true);
 
-            await Task.Delay(1000);
+            await ToSignal(_map.GetTree().CreateTimer(1f, false), "timeout");
         }
     }
 
