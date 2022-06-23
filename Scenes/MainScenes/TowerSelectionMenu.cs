@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class TowerSelectionMenu : TextureRect
 {
@@ -17,13 +18,37 @@ public partial class TowerSelectionMenu : TextureRect
         PopulateTowerMenus(GenerateTowerSelection());
     }
 
-    private void PopulateTowerMenus(List<BaseTower> baseTowers)
+    private void PopulateTowerMenus(List<BaseTower> towers)
     {
-        // throw new NotImplementedException();
+        for (int i = 0; i < towers.Count; i++)
+        {
+            var vBox = GetNode<VBoxContainer>($"VBoxContainer/TowerSelection{i}/VBoxContainer");
+            switch (towers[i].Rarity)
+            {
+                case BaseTower.TowerRarity.Common:
+                    break;
+                case BaseTower.TowerRarity.Uncommon:
+                    break;
+                case BaseTower.TowerRarity.Rare:
+                    break;
+                case BaseTower.TowerRarity.Legendary:
+                    break;
+                default:
+                    break;
+            }
+            // vBox.GetNode<TextureRect>("RarityBar").Modulate = null;
+            vBox.GetNode<Label>("TowerType").Text = "abc";
+            var scale = 1.9f;
+            towers[i].Scale = new Vector2(scale, scale);
+            vBox.GetNode("Base/Center").AddChild(towers[i]);
+        }
+
+        Show();
     }
 
     internal List<BaseTower> GenerateTowerSelection()
     {
+        Show();
         List<BaseTower> towers = new List<BaseTower>();
 
         while (towers.Count < 3)
@@ -46,17 +71,17 @@ public partial class TowerSelectionMenu : TextureRect
         return towers;
     }
 
+    private void OnTowerSelection0ButtonDown()
+    {
+        Hide();
+    }
+
     private void OnTowerSelection1ButtonDown()
     {
         Hide();
     }
 
     private void OnTowerSelection2ButtonDown()
-    {
-        Hide();
-    }
-
-    private void OnTowerSelection3ButtonDown()
     {
         Hide();
     }

@@ -70,4 +70,25 @@ public partial class AC : Node
         TowerPreviews,
         Towers,
     }
+
+    public enum ColorPalette
+    {
+        Blue,
+        Green,
+        Red,
+        Orange,
+    }
+
+    public Color GetColor(AC.ColorPalette colorPalette, int alpha = 1)
+    {
+        switch (colorPalette)
+        {
+            case ColorPalette.Blue:
+                return new Color(0.0f, 0.0f, 1.0f, alpha);
+            case ColorPalette.Green:
+                return new Color(30f, 255f, 0.0f, 150f);
+            default:
+                return new Color(0.0f, 0.0f, 0.0f, alpha);
+        }
+    }
 }

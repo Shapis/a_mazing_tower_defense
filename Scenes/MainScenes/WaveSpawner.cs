@@ -13,7 +13,7 @@ public partial class WaveSpawner : Node
     private AC? _assortedCatalog;
     private Random rng = new Random();
 
-    public int CurrentWave { get; private set; } = 4;
+    public int CurrentWave { get; private set; } = 0;
     public int TotalEnemiesInWave { get; private set; } = 0;
     public int TotalEnemiesLeft { get; private set; } = 0;
     public bool IsWaveInProgress { get; private set; } = false;

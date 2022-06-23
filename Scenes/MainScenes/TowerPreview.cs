@@ -25,6 +25,7 @@ public partial class TowerPreview : Control
 
         if (_isBuildModeActive)
         {
+            var ac = GetNode<AC>("/root/AC");
             if (currentPosition is null)
             {
                 if (_dragTower!.TowerType != _originalDragTower)
@@ -100,8 +101,8 @@ public partial class TowerPreview : Control
 
     private void RemoveDragTower()
     {
-        _dragTower!.Free();
-        _rangeTexture!.Free();
+        _dragTower!.QueueFree();
+        _rangeTexture!.QueueFree();
     }
 
     private void UpdateTower(Vector2 tilePosition, string colorHex)
