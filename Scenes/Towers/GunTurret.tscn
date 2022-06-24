@@ -33,6 +33,7 @@ _data = {
 [node name="GunTurret" type="Node2D"]
 z_index = 1
 script = ExtResource("1_gmvxk")
+Description = "This is a quick firing turret with great tracking and average damage"
 Range = 300.0
 Damage = 10.0
 _rangeCollisionShape2DPath = NodePath("Range/CollisionShape2D")

@@ -73,22 +73,29 @@ public partial class AC : Node
 
     public enum ColorPalette
     {
+        Silver,
         Blue,
         Green,
         Red,
         Orange,
     }
 
-    public Color GetColor(AC.ColorPalette colorPalette, int alpha = 1)
+    public Color GetColor(AC.ColorPalette colorPalette, float alpha = 255f)
     {
         switch (colorPalette)
         {
+            case AC.ColorPalette.Silver:
+                return new Color(192f / 255f, 192f / 255f, 192f / 255f, alpha / 255f);
             case ColorPalette.Blue:
-                return new Color(0.0f, 0.0f, 1.0f, alpha);
+                return new Color(33f / 255f, 108f / 255f, 255f / 255f, alpha / 255f);
             case ColorPalette.Green:
-                return new Color(30f, 255f, 0.0f, 150f);
+                return new Color(30f / 255f, 255f / 255f, 0.0f / 255f, alpha / 255f);
+            case ColorPalette.Red:
+                return new Color(255f / 255f, 32f / 255f, 49f / 255f, alpha / 255f);
+            case ColorPalette.Orange:
+                return new Color(255f / 255f, 106f / 255f, 106f / 255f, alpha / 255f);
             default:
-                return new Color(0.0f, 0.0f, 0.0f, alpha);
+                return new Color(0f / 255f, 0f / 255f, 0f / 255f, alpha / 255f);
         }
     }
 }

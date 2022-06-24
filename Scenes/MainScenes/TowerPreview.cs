@@ -10,6 +10,13 @@ public partial class TowerPreview : Control
     private bool _isBuildModeActive = false;
     private Map? _map;
     private AC.TowerType _originalDragTower;
+    private AC? _assortedCatalog;
+    private float previewModulationAlpha = 170f;
+
+    public sealed override void _Ready()
+    {
+        _assortedCatalog = GetNode<AC>("/root/AC");
+    }
 
     public sealed override void _Process(float delta)
     {
@@ -25,7 +32,6 @@ public partial class TowerPreview : Control
 
         if (_isBuildModeActive)
         {
-            var ac = GetNode<AC>("/root/AC");
             if (currentPosition is null)
             {
                 if (_dragTower!.TowerType != _originalDragTower)
@@ -33,7 +39,10 @@ public partial class TowerPreview : Control
                     RemoveDragTower();
                     SetTower(_originalDragTower);
                 }
-                UpdateTower(GetGlobalMousePosition(), "ff2031b8");
+                UpdateTower(
+                    GetGlobalMousePosition(),
+                    _assortedCatalog!.GetColor(AC.ColorPalette.Red, previewModulationAlpha)
+                );
             }
             else if (!isBlocked)
             {
@@ -42,7 +51,10 @@ public partial class TowerPreview : Control
                     RemoveDragTower();
                     SetTower(_originalDragTower);
                 }
-                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "1eff0096");
+                UpdateTower(
+                    _map.MapToWorld((Vector2i)currentPosition),
+                    _assortedCatalog!.GetColor(AC.ColorPalette.Green, previewModulationAlpha)
+                );
             }
             else if (towerInPosition?.TowerType != _originalDragTower)
             {
@@ -51,7 +63,10 @@ public partial class TowerPreview : Control
                     RemoveDragTower();
                     SetTower(_originalDragTower);
                 }
-                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "ff2031b8");
+                UpdateTower(
+                    _map.MapToWorld((Vector2i)currentPosition),
+                    _assortedCatalog!.GetColor(AC.ColorPalette.Red, previewModulationAlpha)
+                );
             }
             else if (towerInPosition.UpgradesToType == null)
             {
@@ -60,7 +75,10 @@ public partial class TowerPreview : Control
                     RemoveDragTower();
                     SetTower(_originalDragTower);
                 }
-                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "ff2031b8");
+                UpdateTower(
+                    _map.MapToWorld((Vector2i)currentPosition),
+                    _assortedCatalog!.GetColor(AC.ColorPalette.Red, previewModulationAlpha)
+                );
             }
             else
             {
@@ -70,7 +88,10 @@ public partial class TowerPreview : Control
                     SetTower((AC.TowerType)towerInPosition.UpgradesToType);
                 }
 
-                UpdateTower(_map.MapToWorld((Vector2i)currentPosition), "216cffb8");
+                UpdateTower(
+                    _map.MapToWorld((Vector2i)currentPosition),
+                    _assortedCatalog!.GetColor(AC.ColorPalette.Blue, previewModulationAlpha)
+                );
             }
         }
     }
@@ -85,14 +106,20 @@ public partial class TowerPreview : Control
             return;
         }
 
-        _dragTower.Modulate = new Color("1eff0096");
+        _dragTower.Modulate = _assortedCatalog!.GetColor(
+            AC.ColorPalette.Green,
+            previewModulationAlpha
+        );
         _dragTower.Rotate(-Mathf.Pi / 2);
 
         _rangeTexture = new Sprite2D();
         float scaling = _dragTower.Range / 600f;
         _rangeTexture.Scale = new Vector2(scaling, scaling);
         _rangeTexture.Texture = _rangeOverlayTexture;
-        _rangeTexture.Modulate = new Color("1eff0096");
+        _rangeTexture.Modulate = _assortedCatalog!.GetColor(
+            AC.ColorPalette.Green,
+            previewModulationAlpha
+        );
 
         AddChild(_rangeTexture);
         Position = GetGlobalMousePosition();
@@ -105,7 +132,7 @@ public partial class TowerPreview : Control
         _rangeTexture!.QueueFree();
     }
 
-    private void UpdateTower(Vector2 tilePosition, string colorHex)
+    private void UpdateTower(Vector2 tilePosition, Color color)
     {
         Position = tilePosition;
 
@@ -115,15 +142,15 @@ public partial class TowerPreview : Control
             return;
         }
 
-        if (_dragTower.Modulate != new Color(colorHex))
+        if (_dragTower.Modulate != color)
         {
-            _dragTower.Modulate = new Color(colorHex);
+            _dragTower.Modulate = color;
             if (_rangeTexture is null)
             {
                 GD.PrintErr(this, "Range texture is null");
                 return;
             }
-            _rangeTexture.Modulate = new Color(colorHex);
+            _rangeTexture.Modulate = color;
         }
     }
 

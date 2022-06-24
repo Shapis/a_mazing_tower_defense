@@ -33,7 +33,7 @@ public partial class WaveSpawner : Node
     private List<BaseEnemy> GenerateWave()
     {
         List<BaseEnemy> enemies = new List<BaseEnemy>();
-        var targetTotalHealthOfEnemies = (int)(20 * Mathf.Pow(CurrentWave, 1.8f));
+        var targetTotalHealthOfEnemies = (int)(20 * Mathf.Pow(CurrentWave, 1.9f));
         int totalHealthOfEnemies = 0;
 
         while (totalHealthOfEnemies < targetTotalHealthOfEnemies)

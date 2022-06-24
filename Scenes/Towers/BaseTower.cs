@@ -6,8 +6,10 @@ using System.Linq;
 public abstract partial class BaseTower : Node2D
 {
     public abstract AC.TowerType TowerType { get; }
-
     public abstract AC.TowerType? UpgradesToType { get; }
+
+    [Export(PropertyHint.MultilineText)]
+    public string Description { get; private set; } = "";
 
     [Export]
     public float Range { get; private set; } = 600f;

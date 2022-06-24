@@ -4,40 +4,58 @@ using System.Linq;
 
 public partial class SceneHandler : Node
 {
-    private MainMenu? _mainMenu;
     private AC.SceneName _currentSceneName = AC.SceneName.MainMenu;
     private Node? _currentScene = null;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _mainMenu = GetChildren().OfType<MainMenu>().First();
-        _mainMenu.OnNewGamePressed += OnNewGamePressed;
-        _mainMenu.OnSettingsPressed += OnSettingsPressed;
-        _mainMenu.OnShopPressed += OnShopPressed;
-        _mainMenu.OnAboutPressed += OnAboutPressed;
-        _mainMenu.OnQuitPressed += OnQuitPressed;
+        SceneChanger(AC.SceneName.MainMenu);
+    }
+
+    private void SceneChanger(AC.SceneName sceneName)
+    {
+        var ac = GetNode<AC>("/root/AC");
+        var newScene = ac.GetPackedScene(sceneName).Instantiate();
+
+        switch (sceneName)
+        {
+            case AC.SceneName.MainMenu:
+                var mainMenu = newScene as MainMenu;
+                mainMenu!.OnNewGamePressed += OnNewGamePressed;
+                mainMenu.OnSettingsPressed += OnSettingsPressed;
+                mainMenu.OnShopPressed += OnShopPressed;
+                mainMenu.OnAboutPressed += OnAboutPressed;
+                mainMenu.OnQuitPressed += OnQuitPressed;
+                break;
+            case AC.SceneName.GameScene:
+                break;
+            default:
+                break;
+        }
+
+        _currentSceneName = sceneName;
+        AddChild(newScene);
+        _currentScene?.QueueFree();
+        _currentScene = newScene;
     }
 
     public void OnNewGamePressed(Node sender)
     {
-        _mainMenu?.QueueFree();
-
-        _currentSceneName = AC.SceneName.GameScene;
-        var gameScene = GetNode<AC>("/root/AC")
-            .GetPackedScene(AC.SceneName.GameScene)
-            .Instantiate();
-
-        AddChild(gameScene);
+        SceneChanger(AC.SceneName.GameScene);
     }
 
-    // public sealed override void _UnhandledInput(InputEvent inputEvent)
-    // {
-    //     if (inputEvent.IsActionPressed("ui_cancel"))
-    //     {
-    //         GD.Print("here");
-    //     }
-    // }
+    public sealed override void _Input(InputEvent inputEvent)
+    {
+        if (inputEvent.IsActionPressed("ui_cancel"))
+        {
+            if (_currentSceneName == AC.SceneName.GameScene)
+            {
+                SceneChanger(AC.SceneName.MainMenu);
+                GetViewport().SetInputAsHandled();
+            }
+        }
+    }
 
     private void OnSettingsPressed(Node obj) { }
 

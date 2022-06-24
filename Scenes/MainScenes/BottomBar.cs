@@ -21,12 +21,7 @@ public partial class BottomBar : TextureRect
     [Export]
     List<NodePath>? _buildButtonsPath;
     private List<TextureButton> _buildButtons = new List<TextureButton>();
-    private List<AC.TowerType> _towerBank = new List<AC.TowerType>
-    {
-        AC.TowerType.GunTurret,
-        AC.TowerType.GunTurret,
-        AC.TowerType.DualGunTurret
-    };
+    private List<AC.TowerType> _towerBank = new List<AC.TowerType>();
 
     internal void AddTower(AC.TowerType towerType, bool addAtBeggining = false)
     {

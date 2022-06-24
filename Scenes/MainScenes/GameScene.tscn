@@ -286,6 +286,7 @@ offset_right = 576.0
 offset_bottom = 60.0
 
 [node name="TowerSelectionMenu" type="TextureRect" parent="UI"]
+visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -414,7 +415,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 18
-text = "This is a quick firing turret with great tracking and average damage"
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
 autowrap_mode = 3
 clip_text = true
 
@@ -521,7 +522,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 18
-text = "This is a quick firing turret with great tracking and average damage"
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
 autowrap_mode = 3
 clip_text = true
 
@@ -623,20 +624,19 @@ minimum_size = Vector2(310, 0)
 offset_left = 20.0
 offset_top = 222.0
 offset_right = 330.0
-offset_bottom = 292.0
+offset_bottom = 294.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("11_6gkwr")
 theme_override_font_sizes/font_size = 18
-text = "This is a quick firing turret with great tracking and average damage"
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
 autowrap_mode = 3
-clip_text = true
 
 [node name="Control3" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
 minimum_size = Vector2(0, 4)
-offset_top = 296.0
+offset_top = 298.0
 offset_right = 350.0
-offset_bottom = 300.0
+offset_bottom = 302.0
 
 [connection signal="pressed" from="UI/HUD/BottomBar/HBoxContainer/PausePlay" to="UI/HUD/BottomBar" method="OnPausePlayPressed"]
 [connection signal="button_down" from="UI/HUD/BottomBar/HBoxContainer/BuildBtn0" to="UI/HUD/BottomBar" method="OnBuildBtn0Down"]
