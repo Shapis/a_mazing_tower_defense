@@ -71,8 +71,6 @@ public partial class WaveSpawner : Node
             item.OnEnemyDiedEvent += OnEnemyDied;
             item.OnTargetReachedEvent += OnTargetReached;
             _map!.GetChildren().OfType<Path2D>().First().AddChild(item, true);
-            GD.Print(waveEnemyList.Count);
-            GD.Print(Mathf.Pow(15f / waveEnemyList.Count, 0.4f) * waveEnemyList.Count);
             await ToSignal(
                 _map.GetTree().CreateTimer(Mathf.Pow(15f / waveEnemyList.Count, 0.4f), false),
                 "timeout"
