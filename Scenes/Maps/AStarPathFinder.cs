@@ -95,7 +95,7 @@ public partial class AStarPathFinder : Node
             {
                 for (int k = 1; k < 5; k++)
                 {
-                    if (_tileMap!.GetCellSourceId(k, new Vector2i(i, j), true) != -1)
+                    if (_tileMap!.GetCellSourceId(k, new Vector2I(i, j), true) != -1)
                     {
                         Grid[i, j].IsAccessible = false;
                     }

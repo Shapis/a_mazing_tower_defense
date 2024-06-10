@@ -5,21 +5,21 @@ using System.Linq;
 
 public partial class BottomBar : TextureRect
 {
-    public Func<object, bool>? OnPausePlayPressedEvent;
+    public Func<object, bool> OnPausePlayPressedEvent;
 
-    public Func<object, AC.TowerType, bool>? OnBuildBtnDown;
-    public Func<object, AC.TowerType, bool>? OnBuildBtnUp;
-
-    [Export]
-    private NodePath? _pausePlayBtnPath;
-    private TextureButton? _pausePlayBtn;
+    public Func<object, AC.TowerType, bool> OnBuildBtnDown;
+    public Func<object, AC.TowerType, bool> OnBuildBtnUp;
 
     [Export]
-    private NodePath? _TowerOverflowTextPath;
-    private Label? _TowerOverflowText;
+    private NodePath _pausePlayBtnPath;
+    private TextureButton _pausePlayBtn;
 
     [Export]
-    List<NodePath>? _buildButtonsPath;
+    private NodePath _TowerOverflowTextPath;
+    private Label _TowerOverflowText;
+
+    [Export]
+    Godot.Collections.Array<NodePath> _buildButtonsPath;
     private List<TextureButton> _buildButtons = new List<TextureButton>();
     private List<AC.TowerType> _towerBank = new List<AC.TowerType>();
 

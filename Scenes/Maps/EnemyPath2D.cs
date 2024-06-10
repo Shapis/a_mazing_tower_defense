@@ -8,8 +8,8 @@ public partial class EnemyPath2D : Path2D
     private List<Vector2> _pathList = new List<Vector2>();
 
     [Export]
-    NodePath? _tileMapPath;
-    private TileMap? _tileMap;
+    NodePath _tileMapPath;
+    private TileMap _tileMap;
 
     public sealed override void _Ready()
     {
@@ -21,13 +21,13 @@ public partial class EnemyPath2D : Path2D
         GeneratePath();
     }
 
-    public sealed override void _Process(float delta)
+    public sealed override void _Process(double delta)
     {
         //GeneratePath();
     }
 
     // Returns the x index of the free tile at the top and bottom of the game screen. This exists so the path2d can move around if an initial or final tile of it gets blocked.
-    private Vector2i? GetInitialAndFinalPositions(AStarPathFinder aspf)
+    private Vector2I? GetInitialAndFinalPositions(AStarPathFinder aspf)
     {
         int topIndex = 0;
         int bottomIndex = 0;
@@ -53,7 +53,7 @@ public partial class EnemyPath2D : Path2D
                 break;
             }
         }
-        return new Vector2i(topIndex, bottomIndex);
+        return new Vector2I(topIndex, bottomIndex);
     }
 
     // Returns whether the the path could reach its destination or not
@@ -62,15 +62,15 @@ public partial class EnemyPath2D : Path2D
         _pathList.Clear();
         AStarPathFinder aspf = new AStarPathFinder(_tileMap!);
         aspf.GenerateNavMesh();
-        Vector2i? startingPos = GetInitialAndFinalPositions(aspf);
+        Vector2I? startingPos = GetInitialAndFinalPositions(aspf);
         if (startingPos == null)
         {
             GD.PrintErr("Failed to get (starting/ending) index position of EnemyPath2D");
             return false;
         }
         var path = aspf.FindPath(
-            aspf.Grid[startingPos.Value.x, 0],
-            aspf.Grid[startingPos.Value.y, 13]
+            aspf.Grid[startingPos.Value.X, 0],
+            aspf.Grid[startingPos.Value.Y, 13]
         );
 
         if (path == null)
@@ -98,11 +98,11 @@ public partial class EnemyPath2D : Path2D
         _tileMap!.ClearLayer((int)AC.MapLayerName.TowerPreviews);
         AStarPathFinder aspf = new AStarPathFinder(_tileMap!);
         aspf.GenerateNavMesh();
-        Vector2i? startingPos = GetInitialAndFinalPositions(aspf);
+        Vector2I? startingPos = GetInitialAndFinalPositions(aspf);
 
         var path = aspf.FindPath(
-            aspf.Grid[startingPos!.Value.x, 0],
-            aspf.Grid[startingPos.Value.y, 13]
+            aspf.Grid[startingPos!.Value.X, 0],
+            aspf.Grid[startingPos.Value.Y, 13]
         );
         _pathList.Add(path![0].Position - new Vector2(0, 64));
 
@@ -129,6 +129,6 @@ public partial class EnemyPath2D : Path2D
             temp.AddPoint(item);
         }
         Curve = temp;
-        Update();
+        QueueRedraw();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public partial class WaveSpawner : Node
 {
-    [Signal]
+    // [Signal]
     internal event Action<object, int>? OnWaveEndedEvent;
 
     private Map? _map;

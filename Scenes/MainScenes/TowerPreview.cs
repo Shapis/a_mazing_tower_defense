@@ -18,7 +18,7 @@ public partial class TowerPreview : Control
         _assortedCatalog = GetNode<AC>("/root/AC");
     }
 
-    public sealed override void _Process(float delta)
+    public sealed override void _Process(double delta)
     {
         if (_map is null)
         {
@@ -52,7 +52,7 @@ public partial class TowerPreview : Control
                     SetTower(_originalDragTower);
                 }
                 UpdateTower(
-                    _map.MapToWorld((Vector2i)currentPosition),
+                    _map.MapToLocal((Vector2I)currentPosition),
                     _assortedCatalog!.GetColor(AC.ColorPalette.Green, previewModulationAlpha)
                 );
             }
@@ -64,7 +64,7 @@ public partial class TowerPreview : Control
                     SetTower(_originalDragTower);
                 }
                 UpdateTower(
-                    _map.MapToWorld((Vector2i)currentPosition),
+                    _map.MapToLocal((Vector2I)currentPosition),
                     _assortedCatalog!.GetColor(AC.ColorPalette.Red, previewModulationAlpha)
                 );
             }
@@ -76,7 +76,7 @@ public partial class TowerPreview : Control
                     SetTower(_originalDragTower);
                 }
                 UpdateTower(
-                    _map.MapToWorld((Vector2i)currentPosition),
+                    _map.MapToLocal((Vector2I)currentPosition),
                     _assortedCatalog!.GetColor(AC.ColorPalette.Red, previewModulationAlpha)
                 );
             }
@@ -89,7 +89,7 @@ public partial class TowerPreview : Control
                 }
 
                 UpdateTower(
-                    _map.MapToWorld((Vector2i)currentPosition),
+                    _map.MapToLocal((Vector2I)currentPosition),
                     _assortedCatalog!.GetColor(AC.ColorPalette.Blue, previewModulationAlpha)
                 );
             }

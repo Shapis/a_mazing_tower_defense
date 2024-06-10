@@ -5,11 +5,11 @@ using System.Linq;
 
 public abstract partial class BaseEnemy : PathFollow2D
 {
-    [Signal]
-    public event Action<object>? OnTargetReachedEvent;
+    // [Signal]
+    public event Action<object> OnTargetReachedEvent;
 
-    [Signal]
-    public event Action<object>? OnEnemyDiedEvent;
+    // [Signal]
+    public event Action<object> OnEnemyDiedEvent;
 
     [Export]
     public float Speed { get; private set; } = 100f;
@@ -52,17 +52,18 @@ public abstract partial class BaseEnemy : PathFollow2D
 
     protected virtual void __Ready() { }
 
-    public sealed override void _PhysicsProcess(float delta)
+    public sealed override void _PhysicsProcess(double delta)
     {
         Move(delta);
     }
 
-    private void Move(float delta)
+    private void Move(double delta)
     {
-        Offset += Speed * delta;
+        
+        Progress += (float)(Speed * delta);
         _healthBar!.Position = GlobalPosition + _healthBarOffset;
 
-        if (UnitOffset >= 1)
+        if (ProgressRatio >= 1)
         {
             OnTargetReachedEvent?.Invoke(this);
             DieImmediately();

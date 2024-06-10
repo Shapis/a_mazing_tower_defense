@@ -78,7 +78,7 @@ public abstract partial class BaseTower : Node2D
 
     protected virtual void __Ready() { }
 
-    public sealed override void _PhysicsProcess(float delta)
+    public sealed override void _PhysicsProcess(double delta)
     {
         if (_targets.Count > 0 && IsBuilt)
         {
@@ -110,7 +110,7 @@ public abstract partial class BaseTower : Node2D
 
     private void SelectTarget()
     {
-        _currentTarget = _targets.OrderBy(x => x.Offset).Last();
+        _currentTarget = _targets.OrderBy(x => x.Progress).Last();
     }
 
     private void Turn()

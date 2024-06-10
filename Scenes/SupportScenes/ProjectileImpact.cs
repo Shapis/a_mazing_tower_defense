@@ -6,7 +6,7 @@ public partial class ProjectileImpact : AnimatedSprite2D
     // Called when the node enters the scene tree for the first time.
     public sealed override void _Ready()
     {
-        Playing = true;
+        // Playing = true;
     }
 
     private void OnProjectileImpactAnimationFinished()

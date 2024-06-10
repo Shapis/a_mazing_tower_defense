@@ -8,12 +8,12 @@ public partial class BlueTank : BaseEnemy
 
     [Export]
     private NodePath? _projectileSpawnPointPath;
-    private Position2D? _projectileSpawnPoint;
+    private Marker2D? _projectileSpawnPoint;
     private Random _rng = new Random();
 
     protected sealed override void __Ready()
     {
-        _projectileSpawnPoint = GetNode<Position2D>(_projectileSpawnPointPath);
+        _projectileSpawnPoint = GetNode<Marker2D>(_projectileSpawnPointPath);
     }
 
     protected override void __OnHit()

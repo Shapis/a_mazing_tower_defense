@@ -5,18 +5,17 @@ using System.Collections.Generic;
 public partial class AC : Node
 {
     [Export]
-    private List<PackedScene>? _packedScenes;
+    private PackedScene[] _packedScenes;
 
     [Export]
-    private List<PackedScene>? _towers;
+    private PackedScene[] _towers;
 
     [Export]
-    private List<PackedScene>? _enemies;
+    private PackedScene[] _enemies;
 
     public sealed override void _Ready()
     {
-        AC? temp = GD.Load<PackedScene>("res://AssortedCatalog.tscn").Instantiate() as AC;
-
+        AC temp = GD.Load<PackedScene>("res://AssortedCatalog.tscn").Instantiate() as AC;
         if (temp is null)
         {
             GD.PrintErr("Failed to load AssortedCatalog.tscn");

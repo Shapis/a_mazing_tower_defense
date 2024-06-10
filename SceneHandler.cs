@@ -42,6 +42,7 @@ public partial class SceneHandler : Node
 
     public void OnNewGamePressed(Node sender)
     {
+        GD.Print();
         SceneChanger(AC.SceneName.GameScene);
     }
 
