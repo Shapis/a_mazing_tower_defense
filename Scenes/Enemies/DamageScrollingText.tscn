@@ -1,7 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://1tt0bk053nc"]
-
-[ext_resource type="Font" uid="uid://db57ncpinah5i" path="res://Resources/Fonts/kenney_future_narrow.tres" id="1_insy8"]
+[gd_scene format=3 uid="uid://1tt0bk053nc"]
 
 [node name="DamageScrollingText" type="Label"]
-theme_override_fonts/font = ExtResource("1_insy8")
 text = "213"

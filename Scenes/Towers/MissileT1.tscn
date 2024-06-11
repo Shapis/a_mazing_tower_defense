@@ -9,29 +9,29 @@
 radius = 175.0
 
 [node name="MissileT1" type="Node2D"]
-script = ExtResource( "1_dgmb0" )
+script = ExtResource("1_dgmb0")
 Range = 100.0
 _rangeCollisionShape2DPath = NodePath("Range/CollisionShape2D")
 _animationPlayerPath = NodePath("AnimationPlayer")
 
 [node name="Base" type="Sprite2D" parent="."]
-texture = ExtResource( "2_vq104" )
+texture = ExtResource("2_vq104")
 
 [node name="Turret" type="Sprite2D" parent="."]
-texture = ExtResource( "2_lly7w" )
+texture = ExtResource("2_lly7w")
 
 [node name="Missile1" type="Sprite2D" parent="Turret"]
-texture = ExtResource( "3_he48p" )
+texture = ExtResource("3_he48p")
 offset = Vector2(5, -10)
 
 [node name="Missile2" type="Sprite2D" parent="Turret"]
-texture = ExtResource( "3_he48p" )
+texture = ExtResource("3_he48p")
 offset = Vector2(5, 10)
 
 [node name="Range" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
-shape = SubResource( "CircleShape2D_124uc" )
+shape = SubResource("CircleShape2D_124uc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

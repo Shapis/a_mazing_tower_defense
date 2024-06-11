@@ -59,7 +59,7 @@ public abstract partial class BaseEnemy : PathFollow2D
 
     private void Move(double delta)
     {
-        
+
         Progress += (float)(Speed * delta);
         _healthBar!.Position = GlobalPosition + _healthBarOffset;
 

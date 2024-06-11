@@ -15,8 +15,7 @@ public partial class AC : Node
 
     public sealed override void _Ready()
     {
-        AC temp = GD.Load<PackedScene>("res://AssortedCatalog.tscn").Instantiate() as AC;
-        if (temp is null)
+        if (GD.Load<PackedScene>("res://AssortedCatalog.tscn").Instantiate() is not AC temp)
         {
             GD.PrintErr("Failed to load AssortedCatalog.tscn");
             return;

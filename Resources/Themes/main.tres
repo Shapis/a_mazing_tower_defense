@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cv6qkni301tov"]
+
+[ext_resource type="FontVariation" uid="uid://7tpt2gue571m" path="res://Resources/Themes/Fonts/kenney_future_narrow.tres" id="1_3xmqb"]
+
+[resource]
+default_font = ExtResource("1_3xmqb")
+default_font_size = 40
+Fonts/fonts/large = ExtResource("1_3xmqb")
+Fonts/fonts/normal = ExtResource("1_3xmqb")

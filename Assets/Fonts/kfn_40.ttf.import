@@ -1,7 +1,7 @@
 [remap]
 
 importer="font_data_dynamic"
-type="FontData"
+type="FontFile"
 uid="uid://s8mktsp46j8t"
 path="res://.godot/imported/kfn_40.ttf-81bcf3aa7562c15b94028d013174abd1.fontdata"
 
@@ -12,24 +12,28 @@ dest_files=["res://.godot/imported/kfn_40.ttf-81bcf3aa7562c15b94028d013174abd1.f
 
 [params]
 
-face_index=0
-antialiased=true
+Rendering=null
+antialiasing=1
 generate_mipmaps=false
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
+allow_system_fallback=true
 force_autohinter=false
 hinting=1
 subpixel_positioning=1
-embolden=0.0
-transform=Transform2D(1, 0, 0, 1, 0, 0)
 oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
 compress=true
-opentype_feature_overrides={}
-preload/char_ranges=PackedStringArray()
-preload/glyph_ranges=PackedStringArray()
-preload/configurations=PackedStringArray()
-support_overrides/language_enabled=PackedStringArray()
-support_overrides/language_disabled=PackedStringArray()
-support_overrides/script_enabled=PackedStringArray()
-support_overrides/script_disabled=PackedStringArray()
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0),
+"variation_embolden": 0.0
+}]
+language_support={}
+script_support={}
+opentype_features={}
