@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvss6jxrv56sp"]
+[gd_scene load_steps=19 format=3 uid="uid://cvss6jxrv56sp"]
 
 [ext_resource type="Script" path="res://Scenes/MainScenes/GameScene.cs" id="1_ovsd1"]
 [ext_resource type="PackedScene" uid="uid://cglesm4bjo0s4" path="res://Scenes/Maps/Map.tscn" id="1_sfkm7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://fltof5jqhd6d" path="res://Assets/Entities/Towers/towerDefense_tile249.png" id="3_vct74"]
 [ext_resource type="Texture2D" uid="uid://bumicu8wsshvr" path="res://Assets/UI/range_overlay.png" id="4_72ncs"]
 [ext_resource type="Texture2D" uid="uid://va16gvf6g5so" path="res://Assets/Entities/Towers/towerDefense_tile251.png" id="4_dw0pu"]
+[ext_resource type="Theme" uid="uid://cv6qkni301tov" path="res://Resources/Themes/main.tres" id="4_jrak5"]
 [ext_resource type="Texture2D" uid="uid://bdpb08isj3lw6" path="res://Assets/UI/Icons/right.png" id="5_2b2yc"]
 [ext_resource type="Script" path="res://Scenes/MainScenes/BottomBar.cs" id="5_eyarc"]
 [ext_resource type="Texture2D" uid="uid://cl2sy7lth73a1" path="res://Assets/UI/Icons/pause.png" id="6_j0k3s"]
@@ -42,6 +43,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("4_jrak5")
 metadata/_edit_use_custom_anchors = true
 
 [node name="BottomBar" type="TextureRect" parent="UI/HUD"]
@@ -55,7 +57,7 @@ texture = ExtResource("9_q2220")
 expand_mode = 1
 script = ExtResource("5_eyarc")
 _pausePlayBtnPath = NodePath("HBoxContainer/PausePlay")
-_TowerOverflowTextPath = NodePath("TowerOverflow")
+_TowerOverflowTextPath = NodePath("HBoxContainer/TowerOverflow")
 _buildButtonsPath = Array[NodePath]([NodePath("HBoxContainer/BuildBtn0"), NodePath("HBoxContainer/BuildBtn1"), NodePath("HBoxContainer/BuildBtn2"), NodePath("HBoxContainer/BuildBtn3")])
 metadata/_edit_use_custom_anchors = true
 
@@ -86,11 +88,11 @@ layout_mode = 2
 
 [node name="BuildBtn0" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 7
+size_flags_vertical = 5
 action_mode = 0
 texture_normal = ExtResource("2_bjkfu")
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn0"]
 layout_direction = 1
@@ -113,11 +115,11 @@ metadata/_edit_use_custom_anchors = true
 
 [node name="BuildBtn1" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 7
+size_flags_vertical = 5
 action_mode = 0
 texture_normal = ExtResource("2_bjkfu")
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn1"]
 layout_direction = 1
@@ -140,11 +142,11 @@ metadata/_edit_use_custom_anchors = true
 
 [node name="BuildBtn2" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 7
+size_flags_vertical = 5
 action_mode = 0
 texture_normal = ExtResource("2_bjkfu")
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn2"]
 layout_direction = 1
@@ -167,11 +169,11 @@ metadata/_edit_use_custom_anchors = true
 
 [node name="BuildBtn3" type="TextureButton" parent="UI/HUD/BottomBar/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 7
+size_flags_vertical = 5
 action_mode = 0
 texture_normal = ExtResource("2_bjkfu")
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BottomBar/HBoxContainer/BuildBtn3"]
 layout_direction = 1
@@ -192,12 +194,8 @@ texture = ExtResource("4_dw0pu")
 metadata/_edit_layout_mode = 1
 metadata/_edit_use_custom_anchors = true
 
-[node name="TowerOverflow" type="Label" parent="UI/HUD/BottomBar"]
-layout_mode = 0
-offset_left = 530.0
-offset_top = 48.0
-offset_right = 569.0
-offset_bottom = 80.0
+[node name="TowerOverflow" type="Label" parent="UI/HUD/BottomBar/HBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "+4"
 
@@ -257,29 +255,25 @@ tint_progress = Color(0.305882, 1, 0.0862745, 1)
 layout_mode = 2
 
 [node name="TowerSelectionMenu" type="TextureRect" parent="UI"]
-visible = false
 self_modulate = Color(1, 1, 1, 0.784314)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 8
+theme = ExtResource("4_jrak5")
 texture = ExtResource("9_q2220")
 expand_mode = 1
 script = ExtResource("16_c70kl")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu"]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -288.0
-offset_top = -454.0
-offset_right = 288.0
-offset_bottom = 454.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
+alignment = 1
 metadata/_edit_layout_mode = 1
 
 [node name="Label" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer"]
@@ -290,14 +284,13 @@ text = "Pick a tower"
 
 [node name="TowerSelection0" type="TextureButton" parent="UI/TowerSelectionMenu/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("16_cbdce")
-ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection0"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
@@ -350,6 +343,7 @@ metadata/_edit_layout_mode = 1
 layout_mode = 2
 
 [node name="Description" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection0/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -363,11 +357,9 @@ layout_mode = 2
 
 [node name="TowerSelection1" type="TextureButton" parent="UI/TowerSelectionMenu/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("16_cbdce")
-ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1"]
 layout_mode = 0
@@ -423,6 +415,7 @@ metadata/_edit_layout_mode = 1
 layout_mode = 2
 
 [node name="Description" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection1/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -436,11 +429,9 @@ layout_mode = 2
 
 [node name="TowerSelection2" type="TextureButton" parent="UI/TowerSelectionMenu/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 texture_normal = ExtResource("16_cbdce")
-ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2"]
 layout_mode = 0
@@ -496,12 +487,14 @@ metadata/_edit_layout_mode = 1
 layout_mode = 2
 
 [node name="Description" type="Label" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 18
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
 autowrap_mode = 3
+clip_text = true
 
 [node name="Control3" type="Control" parent="UI/TowerSelectionMenu/VBoxContainer/TowerSelection2/VBoxContainer"]
 layout_mode = 2

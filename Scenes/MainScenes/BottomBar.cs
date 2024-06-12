@@ -58,8 +58,8 @@ public partial class BottomBar : TextureRect
         int overflow = _towerBank.Count - _buildButtons.Count;
         if (overflow <= 0)
         {
-            _TowerOverflowText!.Text = $"+{overflow}";
-            _TowerOverflowText!.Visible = false;
+            _TowerOverflowText!.Text = $"+0";
+            _TowerOverflowText!.Visible = true;
         }
         else if (overflow > 9)
         {

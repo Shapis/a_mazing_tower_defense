@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="a_mazing_tower_defense"
-run/main_scene="res://Scenes/Maps/Map.tscn"
+run/main_scene="res://SceneHandler.tscn"
 config/features=PackedStringArray("4.2", "C#")
 config/icon="res://icon.png"
 
