@@ -1,4 +1,0 @@
-[gd_scene format=3 uid="uid://1tt0bk053nc"]
-
-[node name="DamageScrollingText" type="Label"]
-text = "213"
