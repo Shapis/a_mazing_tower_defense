@@ -17,7 +17,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-AC="*res://Resources/Scripts/AC.cs"
+NewScript="*res://Resources/Scripts/new_script.cs"
 
 [display]
 
