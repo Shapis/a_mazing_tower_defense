@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cv2ba53a1g1xh" path="res://Assets/Environments/Props/treeGreen_large.png" id="3_cd041"]
 [ext_resource type="Texture2D" uid="uid://cibaw6pgv4uvt" path="res://Assets/Environments/Props/crateMetal.png" id="4_vufsc"]
 [ext_resource type="Texture2D" uid="uid://c5movf1f7vlxu" path="res://Assets/Environments/Props/crateWood.png" id="5_7n4ad"]
-[ext_resource type="Script" path="res://Scenes/Maps/Map.cs" id="7_widcw"]
-[ext_resource type="Script" path="res://Scenes/Maps/EnemyPath2D.cs" id="8_i4s33"]
+[ext_resource type="Script" uid="uid://cdl0qg18m4g58" path="res://Scenes/Maps/Map.cs" id="7_widcw"]
+[ext_resource type="Script" uid="uid://ks3yioyx06t5" path="res://Scenes/Maps/EnemyPath2D.cs" id="8_i4s33"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cr6q8"]
 texture = ExtResource("1_aga08")

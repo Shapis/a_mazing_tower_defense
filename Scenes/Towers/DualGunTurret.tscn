@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bhu145o0c845j"]
 
-[ext_resource type="Script" path="res://Scenes/Towers/DualGunTurret.cs" id="1_miky0"]
+[ext_resource type="Script" uid="uid://muupe3dv1fp6" path="res://Scenes/Towers/DualGunTurret.cs" id="1_miky0"]
 [ext_resource type="Texture2D" uid="uid://d0e25gjyi2uaw" path="res://Assets/Entities/Towers/towerDefense_tile181.png" id="2_p0tug"]
 [ext_resource type="Texture2D" uid="uid://eo5g1o7lkghg" path="res://Assets/Entities/Towers/towerDefense_tile250.png" id="3_ds8mu"]
 [ext_resource type="Texture2D" uid="uid://b5g2gtka8kwe" path="res://Assets/Effects/towerDefense_tile297.png" id="4_xj400"]
@@ -43,8 +43,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_72aqw"]
 _data = {
-"Fire1": SubResource("Animation_s5dt1"),
-"Fire2": SubResource("Animation_1dhul")
+&"Fire1": SubResource("Animation_s5dt1"),
+&"Fire2": SubResource("Animation_1dhul")
 }
 
 [node name="DualGunTurret" type="Node2D"]

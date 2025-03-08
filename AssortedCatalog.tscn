@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ctk11hsuqec8x"]
 
-[ext_resource type="Script" path="res://Resources/Scripts/AC.cs" id="1_qjy1w"]
+[ext_resource type="Script" uid="uid://do8n0bnt0s6gt" path="res://Resources/Scripts/AC.cs" id="1_qjy1w"]
 [ext_resource type="PackedScene" uid="uid://cvss6jxrv56sp" path="res://Scenes/MainScenes/GameScene.tscn" id="2_crk06"]
 [ext_resource type="PackedScene" uid="uid://b5g2ghcqvoauw" path="res://Scenes/Towers/GunTurret.tscn" id="3_7vqh6"]
 [ext_resource type="PackedScene" uid="uid://wlee3slh1dov" path="res://Scenes/UIScenes/MainMenu.tscn" id="3_r0n7l"]
